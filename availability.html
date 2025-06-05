@@ -102,12 +102,14 @@
   </h1>
 
   <label>
-    <script>document.write(T.select_date)</script> From: <input type="datetime-local" id="startTime" />
+    <script>document.write(T.select_date)</script><br />
+    From: <input type="date" id="startDate" />
+    To: <input type="date" id="endDate" />
   </label><br />
-  <label>To: <input type="datetime-local" id="endTime" /></label><br />
   <button onclick="checkAvailability()">
     <script>document.write(T.check)</script>
   </button>
+
 
   <div id="results"></div>
   <script src="script.js"></script>

@@ -1,5 +1,6 @@
 const API_KEY = 'AIzaSyAJnbGfYLHm4ZcMmyCp3-vyH8BLMEK2lI4';
 let speakers = [];
+const AVAILABILITY_BUFFER_DAYS = 1;  // You can change this to 2, 3, etc.
 
 async function loadSpeakers() {
   const res = await fetch('speakers.json');
@@ -17,14 +18,20 @@ function isoRange(date) {
 }
 
 async function checkAvailability() {
-  const startInput = document.getElementById('startTime').value;
-  const endInput = document.getElementById('endTime').value;
-  if (!startInput || !endInput) return;
+  const startDateInput = document.getElementById('startDate').value;
+  const endDateInput = document.getElementById('endDate').value;
+  if (!startDateInput || !endDateInput) return;
 
-  const timeMin = new Date(startInput).toISOString();
-  const timeMax = new Date(endInput).toISOString();
+  // Create buffered range
+  const start = new Date(startDateInput);
+  const end = new Date(endDateInput);
 
-  if (speakers.length === 0) await loadSpeakers();
+  const timeMin = new Date(start.setDate(start.getDate() - AVAILABILITY_BUFFER_DAYS)).toISOString();
+  const timeMax = new Date(end.setDate(end.getDate() + AVAILABILITY_BUFFER_DAYS)).toISOString();
+
+  if (typeof loadSpeakers === 'function' && (!window.speakers || speakers.length === 0)) {
+    await loadSpeakers();
+  }
 
   const resultsDiv = document.getElementById('results');
   resultsDiv.innerHTML = T.loading;
@@ -40,14 +47,18 @@ async function checkAvailability() {
         if (!data.items || data.items.length === 0) {
           results.push(`<p><strong>${name}</strong> is <span style="color:green">${T.available}</span></p>`);
         } else {
-          results.push(`<p><strong>${name}</strong> ${T.is_teaching}</p><ul>` +
-            data.items.map(e => `<li>${e.summary} (${e.start.dateTime || e.start.date})</li>`).join('') + '</ul>');
+          results.push(`<p><strong>${name}</strong> is <span style="color:red">${T.teaching_now}</span>:</p><ul>` +
+            data.items.map(e => {
+              const time = e.start.dateTime || e.start.date;
+              return `<li>${e.summary} – ${time}</li>`;
+            }).join('') + '</ul>');
         }
       });
   }));
 
   resultsDiv.innerHTML = results.join('');
 }
+
 
 
 async function checkAtTime() {
