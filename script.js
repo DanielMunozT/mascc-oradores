@@ -17,28 +17,38 @@ function isoRange(date) {
 }
 
 async function checkAvailability() {
-  const date = document.getElementById('datePicker').value;
-  if (!date) return;
+  const startInput = document.getElementById('startTime').value;
+  const endInput = document.getElementById('endTime').value;
+  if (!startInput || !endInput) return;
+
+  const timeMin = new Date(startInput).toISOString();
+  const timeMax = new Date(endInput).toISOString();
+
   if (speakers.length === 0) await loadSpeakers();
-  const { timeMin, timeMax } = isoRange(date);
+
   const resultsDiv = document.getElementById('results');
   resultsDiv.innerHTML = T.loading;
+
   const results = [];
 
   await Promise.all(speakers.map(({ name, calendarId }) => {
     const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
-    return fetch(url).then(res => res.json()).then(data => {
-      if (!data.items || data.items.length === 0) {
-        results.push(`<p><strong>${name}</strong> is <span style="color:green">${T.available}</span></p>`);
-      } else {
-        results.push(`<p><strong>${name}</strong> ${T.is_teaching}</p><ul>` +
-          data.items.map(e => `<li>${e.summary} (${e.start.dateTime || e.start.date})</li>`).join('') + '</ul>');
-      }
-    });
+
+    return fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        if (!data.items || data.items.length === 0) {
+          results.push(`<p><strong>${name}</strong> is <span style="color:green">${T.available}</span></p>`);
+        } else {
+          results.push(`<p><strong>${name}</strong> ${T.is_teaching}</p><ul>` +
+            data.items.map(e => `<li>${e.summary} (${e.start.dateTime || e.start.date})</li>`).join('') + '</ul>');
+        }
+      });
   }));
 
   resultsDiv.innerHTML = results.join('');
 }
+
 
 async function checkAtTime() {
   const dateTime = document.getElementById('timePicker').value;
