@@ -1,0 +1,50 @@
+const translations = {
+    "en": {
+      "title": "MASCC Course Scheduler",
+      "home": "Home",
+      "list": "📋 List of Speakers & Calendars",
+      "availability": "📅 Check Availability by Time Range",
+      "teaching": "⏰ Who's Teaching at a Specific Time",
+      "select_date": "Select time range:",
+      "select_time": "Select time:",
+      "check": "Check",
+      "loading": "Loading...",
+      "available": "AVAILABLE",
+      "not_teaching": "NOT teaching at that time",
+      "teaching_now": "TEACHING NOW",
+      "is_teaching": "is TEACHING:",
+      "is_available": "is AVAILABLE"
+    },
+    "es": {
+      "title": "Programador de Cursos MASCC",
+      "home": "Inicio",
+      "list": "📋 Lista de Ponentes y Calendarios",
+      "availability": "📅 Ver Disponibilidad por Rango Horario",
+      "teaching": "⏰ Quién Está Enseñando en un Momento",
+      "select_date": "Selecciona un rango de horario:",
+      "select_time": "Seleccionar hora:",
+      "check": "Verificar",
+      "loading": "Cargando...",
+      "available": "DISPONIBLE",
+      "not_teaching": "NO está enseñando en ese momento",
+      "teaching_now": "ENSEÑANDO AHORA",
+      "is_teaching": "está ENSEÑANDO:",
+      "is_available": "está DISPONIBLE"
+    },
+    "pt": {
+      "title": "Agendador de Cursos MASCC",
+      "home": "Início",
+      "list": "📋 Lista de Palestrantes e Calendários",
+      "availability": "📅 Ver Disponibilidade por Faixa de Horário",
+      "teaching": "⏰ Quem Está Ensinando em um Horário",
+      "select_date": "Selecione o intervalo de horário:",
+      "select_time": "Selecionar horário:",
+      "check": "Verificar",
+      "loading": "Carregando...",
+      "available": "DISPONÍVEL",
+      "not_teaching": "NÃO está ensinando nesse horário",
+      "teaching_now": "ENSINANDO AGORA",
+      "is_teaching": "está ENSINANDO:",
+      "is_available": "está DISPONÍVEL"
+    }
+  };

@@ -59,19 +59,20 @@
     }
   </style>
 
+  <script src="translations.js"></script>
   <script>
     let langParam = new URLSearchParams(window.location.search).get('lang');
     let browserLang = (navigator.language || 'en').slice(0, 2).toLowerCase();
     const LANG = ['en', 'es', 'pt'].includes((langParam || browserLang)) ? (langParam || browserLang) : 'en';
     const T = {};
-    function setLanguageStrings(translations) {
+    function setLanguageStrings() {
       for (const [key, value] of Object.entries(translations[LANG] || translations['en'])) {
         T[key] = value;
       }
     }
-    const translations = { "en": { "title": "MASCC Course Scheduler", "home": "Home", "list": "\ud83d\udccb List of Speakers & Calendars", "availability": "\ud83d\udcc5 Check Availability by Date", "teaching": "\u23f0 Who's Teaching at a Specific Time", "select_date": "Select date:", "select_time": "Select time:", "check": "Check", "loading": "Loading...", "available": "AVAILABLE", "not_teaching": "NOT teaching at that time", "teaching_now": "TEACHING NOW", "is_teaching": "is TEACHING:", "is_available": "is AVAILABLE" }, "es": { "title": "Programador de Cursos MASCC", "home": "Inicio", "list": "\ud83d\udccb Lista de Ponentes y Calendarios", "availability": "\ud83d\udcc5 Ver Disponibilidad por Fecha", "teaching": "\u23f0 Qui\u00e9n Est\u00e1 Ense\u00f1ando en un Momento", "select_date": "Seleccionar fecha:", "select_time": "Seleccionar hora:", "check": "Verificar", "loading": "Cargando...", "available": "DISPONIBLE", "not_teaching": "NO est\u00e1 ense\u00f1ando en ese momento", "teaching_now": "ENSE\u00d1ANDO AHORA", "is_teaching": "est\u00e1 ENSE\u00d1ANDO:", "is_available": "est\u00e1 DISPONIBLE" }, "pt": { "title": "Agendador de Cursos MASCC", "home": "In\u00edcio", "list": "\ud83d\udccb Lista de Palestrantes e Calend\u00e1rios", "availability": "\ud83d\udcc5 Ver Disponibilidade por Data", "teaching": "\u23f0 Quem Est\u00e1 Ensinando em um Hor\u00e1rio", "select_date": "Selecionar data:", "select_time": "Selecionar hor\u00e1rio:", "check": "Verificar", "loading": "Carregando...", "available": "DISPON\u00cdVEL", "not_teaching": "N\u00c3O est\u00e1 ensinando nesse hor\u00e1rio", "teaching_now": "ENSINANDO AGORA", "is_teaching": "est\u00e1 ENSINANDO:", "is_available": "est\u00e1 DISPON\u00cdVEL" } };
-    setLanguageStrings(translations);
+    setLanguageStrings();
   </script>
+
 </head>
 
 <body id="availability">
