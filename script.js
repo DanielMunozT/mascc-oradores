@@ -79,3 +79,41 @@ async function checkAtTime() {
 
   resultsDiv.innerHTML = results.join('');
 }
+
+async function checkTeaching() {
+  const startInput = document.getElementById('startDate').value;
+  const endInput = document.getElementById('endDate').value;
+  if (!startInput || !endInput) return;
+
+  const timeMin = new Date(startInput).toISOString();
+  const timeMax = new Date(new Date(endInput).setDate(new Date(endInput).getDate() + 1)).toISOString();
+
+  if (typeof loadSpeakers === 'function' && (!window.speakers || speakers.length === 0)) {
+    await loadSpeakers();
+  }
+
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.innerHTML = T.loading;
+
+  const results = [];
+
+  await Promise.all(speakers.map(({ name, calendarId }) => {
+    const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
+
+    return fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        if (!data.items || data.items.length === 0) {
+          results.push(`<p><strong>${name}</strong>: <span style="color:green">${T.not_teaching}</span></p>`);
+        } else {
+          results.push(`<p><strong>${name}</strong> ${T.is_teaching}</p><ul>` +
+            data.items.map(e => {
+              const time = e.start.dateTime || e.start.date;
+              return `<li>${e.summary} – ${time}</li>`;
+            }).join('') + '</ul>');
+        }
+      });
+  }));
+
+  resultsDiv.innerHTML = results.join('');
+}

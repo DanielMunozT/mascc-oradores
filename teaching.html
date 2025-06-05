@@ -3,62 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>
-    <script>document.write(T.title)</script>
-  </title>
-
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 1em;
-      max-width: 600px;
-      padding: 0 1em;
-      line-height: 1.6;
-    }
-
-    input,
-    button {
-      font-size: 1em;
-      padding: 0.5em;
-      margin-top: 0.5em;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 6px;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    h1 {
-      font-size: 1.4em;
-      margin-bottom: 0.5em;
-    }
-
-    ul {
-      padding-left: 1.2em;
-    }
-
-    li {
-      margin: 0.5em 0;
-    }
-
-    @media (min-width: 768px) {
-
-      input,
-      button {
-        width: auto;
-      }
-    }
-  </style>
-
+  <title>Teaching in Date Range</title>
   <script src="translations.js"></script>
   <script>
     let langParam = new URLSearchParams(window.location.search).get('lang');
@@ -72,42 +17,49 @@
     }
     setLanguageStrings();
   </script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 1em;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    input,
+    button {
+      font-size: 1em;
+      padding: 0.5em;
+      margin: 0.3em 0;
+      width: 100%;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 
-<body id="teaching">
-
-  <div style="margin-bottom: 1em;">
-    <label for="lang-select">🌐 Language: </label>
-    <select id="lang-select" onchange="changeLang(this.value)">
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="pt">Português</option>
-    </select>
-  </div>
-  <script>
-    function changeLang(lang) {
-      const url = new URL(window.location.href);
-      url.searchParams.set('lang', lang);
-      window.location.href = url.toString();
-    }
-    window.addEventListener("DOMContentLoaded", () => {
-      document.getElementById('lang-select').value = LANG;
-    });
-  </script>
-
-
+<body>
   <h1>
     <script>document.write(T.teaching)</script>
   </h1>
   <label>
-    <script>document.write(T.select_time)</script> <input type="datetime-local" id="timePicker" />
-  </label>
-  <button onclick="checkAtTime()">
+    <script>document.write(T.select_time)</script><br />
+    From: <input type="date" id="startDate" />
+    To: <input type="date" id="endDate" />
+  </label><br />
+  <button onclick="checkTeaching()">
     <script>document.write(T.check)</script>
   </button>
   <div id="results"></div>
   <script src="script.js"></script>
-
 </body>
 
 </html>
