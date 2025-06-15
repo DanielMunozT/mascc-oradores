@@ -58,6 +58,7 @@
   </style>
 
   <script src="translations.js"></script>
+  <script src="script.js"></script>
   <script>
     let langParam = new URLSearchParams(window.location.search).get('lang');
     let browserLang = (navigator.language || 'en').slice(0, 2).toLowerCase();
@@ -92,37 +93,6 @@
     window.addEventListener("DOMContentLoaded", () => {
       document.getElementById('lang-select').value = LANG;
     });
-
-    const COUNTRY_OVERRIDES = {
-      'UNITED STATES': 'US',
-      'UNITED STATES OF AMERICA': 'US',
-      'U.S.A.': 'US',
-      'U.S.A': 'US',
-      'USA': 'US',
-      'U.S.': 'US',
-      'UNITED KINGDOM': 'GB',
-      'UK': 'GB',
-      'U.K.': 'GB',
-      'GREAT BRITAIN': 'GB',
-      'BRASIL': 'BR',
-      'BRAZIL': 'BR',
-      'MEXICO': 'MX',
-      'M\u00c9XICO': 'MX',
-      'SPAIN': 'ES',
-      'ESPA\u00d1A': 'ES',
-      'CANADA': 'CA',
-      'CANAD\u00c1': 'CA'
-    };
-
-    function flagEmoji(countryCode) {
-      if (!countryCode) return '📍';
-      const key = countryCode.trim().toUpperCase();
-      const override = COUNTRY_OVERRIDES[key];
-      const cc = (override || countryCode.trim().slice(0, 2)).toUpperCase();
-      return cc.replace(/./g, c =>
-        String.fromCodePoint(127397 + c.charCodeAt())
-      );
-    }
   </script>
 
 
@@ -139,7 +109,7 @@
           const name = `<strong>${speaker.name}</strong>`;
           const calendar = `<a href="${speaker.calendarUrl}" target="_blank">View Calendar</a>`;
           const location = speaker.location
-            ? `<br/>${flagEmoji(speaker.countryCode)} ${speaker.location}`
+            ? `<br/>${flagFromLocation(speaker.location)} ${speaker.location}`
             : "";
           const langs = speaker.languages ? `<br/>🗣️ ${speaker.languages.join(', ')}` : "";
           const requestLink = speaker.formUrl

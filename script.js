@@ -32,7 +32,10 @@ async function checkAvailability() {
 
   const results = [];
 
-  await Promise.all(speakers.map(({ name, calendarId, formUrl }) => {
+  await Promise.all(speakers.map(({ name, calendarId, formUrl, location }) => {
+    const { city, state, country } = parseLocation(location || '');
+    const parts = [city, state, country].filter(Boolean).join(', ');
+    const loc = parts ? `<br/>${flagFromLocation(location)} ${parts}` : '';
     const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
 
       return fetch(url)
@@ -44,17 +47,17 @@ async function checkAvailability() {
               const statusMsg = `${status} ${statusText}`.trim();
               msg = statusMsg || T.calendar_private;
             }
-            results.push(`<p><strong>${name}</strong>: <span style="color:orange">${msg}</span></p>`);
+            results.push(`<p><strong>${name}</strong>${loc}: <span style="color:orange">${msg}</span></p>`);
           } else if (!data.items || data.items.length === 0) {
             const request = formUrl ? ` <a href="${formUrl}" target="_blank">${T.request_speaker}</a>` : '';
-            results.push(`<p><strong>${name}</strong>: <span style="color:green">${T.available}</span>${request}</p>`);
+            results.push(`<p><strong>${name}</strong>${loc}: <span style="color:green">${T.available}</span>${request}</p>`);
           } else {
             // Speaker is teaching in this range; do not include in results
           }
         })
       .catch(err => {
         const msg = err && err.message ? err.message : T.calendar_private;
-        results.push(`<p><strong>${name}</strong>: <span style="color:orange">${msg}</span></p>`);
+        results.push(`<p><strong>${name}</strong>${loc}: <span style="color:orange">${msg}</span></p>`);
       });
   }));
 
@@ -190,6 +193,11 @@ function flagEmoji(country) {
   );
 }
 
+function flagFromLocation(loc) {
+  const { country } = parseLocation(loc || '');
+  return flagEmoji(country);
+}
+
 function renderEventsTable(events) {
   let html =
     '<table border="1" cellpadding="4" cellspacing="0"><thead><tr>' +
@@ -233,4 +241,5 @@ async function showEventsRange(startDateInput, endDateInput, divId = 'results') 
 if (typeof window !== 'undefined') {
   window.checkTeachingRange = checkTeachingRange;
   window.showEventsRange = showEventsRange;
+  window.flagFromLocation = flagFromLocation;
 }
