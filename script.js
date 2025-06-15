@@ -46,16 +46,12 @@ async function checkAvailability() {
             }
             results.push(`<p><strong>${name}</strong>: <span style="color:orange">${msg}</span></p>`);
           } else if (!data.items || data.items.length === 0) {
-          const request = formUrl ? ` <a href="${formUrl}" target="_blank">${T.request_speaker}</a>` : '';
-          results.push(`<p><strong>${name}</strong>: <span style="color:green">${T.available}</span>${request}</p>`);
-        } else {
-          results.push(`<p><strong>${name}</strong>: <span style="color:red">${T.teaching_now}</span></p><ul>` +
-            data.items.map(e => {
-              const time = e.start.dateTime || e.start.date;
-              return `<li>${e.summary} – ${time}</li>`;
-            }).join('') + '</ul>');
-        }
-      })
+            const request = formUrl ? ` <a href="${formUrl}" target="_blank">${T.request_speaker}</a>` : '';
+            results.push(`<p><strong>${name}</strong>: <span style="color:green">${T.available}</span>${request}</p>`);
+          } else {
+            // Speaker is teaching in this range; do not include in results
+          }
+        })
       .catch(err => {
         const msg = err && err.message ? err.message : T.calendar_private;
         results.push(`<p><strong>${name}</strong>: <span style="color:orange">${msg}</span></p>`);
