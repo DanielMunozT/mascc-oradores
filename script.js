@@ -70,45 +70,8 @@ async function checkTeaching() {
 }
 
 async function checkTeachingRange(startDateInput, endDateInput) {
-  const timeMin = new Date(startDateInput).toISOString();
-  const endDate = new Date(endDateInput);
-  endDate.setDate(endDate.getDate() + 1);
-  const timeMax = endDate.toISOString();
-
-  if (speakers.length === 0) await loadSpeakers();
-
-  const results = [];
-
-  await Promise.all(speakers.map(({ name, calendarId, calendarUrl }) => {
-    const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
-
-      return fetch(url)
-        .then(res => res.json().then(data => ({ ok: res.ok, status: res.status, statusText: res.statusText, data })))
-        .then(({ ok, status, statusText, data }) => {
-        if (!ok || data.error) {
-          let msg = data && data.error && data.error.message;
-          if (!msg) {
-            const statusMsg = `${status} ${statusText}`.trim();
-            msg = statusMsg || T.calendar_private;
-          }
-          results.push(`<p><strong>${name}</strong>: <span style="color:orange">${msg}</span></p>`);
-        } else if (data.items && data.items.length > 0) {
-          const schedule = calendarUrl ? ` <a href="${calendarUrl}" target="_blank">View Calendar</a>` : '';
-          results.push(`<p><strong>${name}</strong>${schedule}</p><ul>` +
-            data.items.map(e => {
-              const time = e.start.dateTime || e.start.date;
-              const loc = e.location ? ` – ${e.location}` : '';
-              return `<li>${e.summary} – ${time}${loc}</li>`;
-            }).join('') + '</ul>');
-        }
-      })
-      .catch(err => {
-        const msg = err && err.message ? err.message : T.calendar_private;
-        results.push(`<p><strong>${name}</strong>: <span style="color:orange">${msg}</span></p>`);
-      });
-  }));
-
-  return results.length ? results.join('') : `<p>${T.not_teaching}</p>`;
+  const events = await getEventsInRange(startDateInput, endDateInput);
+  return renderEventsTable(events);
 }
 
 const US_STATES = new Set([
@@ -186,7 +149,6 @@ async function getEventsInRange(startDateInput, endDateInput) {
 }
 
 function renderEventsTable(events) {
-  if (!events.length) return `<p>${T.not_teaching}</p>`;
   let html =
     '<table border="1" cellpadding="4" cellspacing="0"><thead><tr>' +
     `<th>${T.speaker}</th>` +
@@ -197,18 +159,22 @@ function renderEventsTable(events) {
     `<th>${T.state}</th>` +
     `<th>${T.country}</th>` +
     '</tr></thead><tbody>';
-  events.forEach(e => {
-    html +=
-      '<tr>' +
-      `<td>${e.speaker}</td>` +
-      `<td>${e.event}</td>` +
-      `<td>${e.start}</td>` +
-      `<td>${e.end}</td>` +
-      `<td>${e.city}</td>` +
-      `<td>${e.state}</td>` +
-      `<td>${e.country}</td>` +
-      '</tr>';
-  });
+  if (events.length) {
+    events.forEach(e => {
+      html +=
+        '<tr>' +
+        `<td>${e.speaker}</td>` +
+        `<td>${e.event}</td>` +
+        `<td>${e.start}</td>` +
+        `<td>${e.end}</td>` +
+        `<td>${e.city}</td>` +
+        `<td>${e.state}</td>` +
+        `<td>${e.country}</td>` +
+        '</tr>';
+    });
+  } else {
+    html += `<tr><td colspan="7">${T.not_teaching}</td></tr>`;
+  }
   html += '</tbody></table>';
   return html;
 }
