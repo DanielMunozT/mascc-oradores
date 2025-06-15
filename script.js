@@ -153,6 +153,20 @@ function toDateString(val) {
   return (val || '').split('T')[0];
 }
 
+function flagEmoji(country) {
+  if (!country) return '';
+  const cc = country.trim().slice(0, 2).toUpperCase();
+  if (cc.length !== 2) return '';
+  const base = 0x1f1e6;
+  const first = cc.codePointAt(0);
+  const second = cc.codePointAt(1);
+  if (first < 65 || first > 90 || second < 65 || second > 90) return '';
+  return (
+    String.fromCodePoint(base + first - 65) +
+    String.fromCodePoint(base + second - 65)
+  );
+}
+
 function renderEventsTable(events) {
   let html =
     '<table border="1" cellpadding="4" cellspacing="0"><thead><tr>' +
@@ -175,7 +189,7 @@ function renderEventsTable(events) {
         `<td>${toDateString(e.end)}</td>` +
         `<td>${e.city}</td>` +
         `<td>${e.state}</td>` +
-        `<td>${e.country}</td>` +
+        `<td>${flagEmoji(e.country)} ${e.country}</td>` +
         `<td><a href="${e.calendarUrl}" target="_blank">${T.calendar}</a></td>` +
         '</tr>';
     });
