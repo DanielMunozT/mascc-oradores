@@ -92,6 +92,13 @@
     window.addEventListener("DOMContentLoaded", () => {
       document.getElementById('lang-select').value = LANG;
     });
+
+    function flagEmoji(countryCode) {
+      if (!countryCode) return '📍';
+      return countryCode
+        .toUpperCase()
+        .replace(/./g, c => String.fromCodePoint(127397 + c.charCodeAt()));
+    }
   </script>
 
 
@@ -107,7 +114,9 @@
         data.forEach(speaker => {
           const name = `<strong>${speaker.name}</strong>`;
           const calendar = `<a href="${speaker.calendarUrl}" target="_blank">View Calendar</a>`;
-          const location = speaker.location ? `<br/>📍 ${speaker.location}` : "";
+          const location = speaker.location
+            ? `<br/>${flagEmoji(speaker.countryCode)} ${speaker.location}`
+            : "";
           const langs = speaker.languages ? `<br/>🗣️ ${speaker.languages.join(', ')}` : "";
           const requestLink = speaker.formUrl
             ? `<br/><a href="${speaker.formUrl}" target="_blank">📨 Request this speaker</a>`
