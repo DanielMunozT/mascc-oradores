@@ -32,14 +32,15 @@ async function checkAvailability() {
 
   const results = [];
 
-  await Promise.all(speakers.map(({ name, calendarId }) => {
+  await Promise.all(speakers.map(({ name, calendarId, formUrl }) => {
     const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
 
     return fetch(url)
       .then(res => res.json())
       .then(data => {
         if (!data.items || data.items.length === 0) {
-          results.push(`<p><strong>${name}</strong>: <span style="color:green">${T.available}</span></p>`);
+          const request = formUrl ? ` <a href="${formUrl}" target="_blank">${T.request_speaker}</a>` : '';
+          results.push(`<p><strong>${name}</strong>: <span style="color:green">${T.available}</span>${request}</p>`);
         } else {
           results.push(`<p><strong>${name}</strong>: <span style="color:red">${T.teaching_now}</span></p><ul>` +
             data.items.map(e => {
