@@ -13,7 +13,8 @@ const translations = {
       "not_teaching": "NOT teaching during that period",
       "teaching_now": "TEACHING",
       "is_teaching": "is TEACHING:",
-      "is_available": "is AVAILABLE"
+      "is_available": "is AVAILABLE",
+      "calendar_private": "CALENDAR NOT PUBLIC"
     },
     "es": {
       "title": "Programador de MASCC",
@@ -29,7 +30,8 @@ const translations = {
       "not_teaching": "NO está enseñando en ese período",
       "teaching_now": "ENSEÑANDO",
       "is_teaching": "está ENSEÑANDO:",
-      "is_available": "está DISPONIBLE"
+      "is_available": "está DISPONIBLE",
+      "calendar_private": "CALENDARIO NO PÚBLICO"
     },
     "pt": {
       "title": "Agendador de MASCC",
@@ -45,7 +47,8 @@ const translations = {
       "not_teaching": "NÃO está ensinando nesse período",
       "teaching_now": "ENSINANDO",
       "is_teaching": "está ENSINANDO:",
-      "is_available": "está DISPONÍVEL"
+      "is_available": "está DISPONÍVEL",
+      "calendar_private": "CALENDÁRIO NÃO PÚBLICO"
     }
   };
 
