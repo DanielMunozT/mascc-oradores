@@ -76,8 +76,7 @@
       const start = startOfWeek(new Date());
       const end = endOfWeek(new Date());
       setRangeText(start, end);
-      const html = await checkTeachingRange(fmt(start), fmt(end));
-      document.getElementById('results').innerHTML = html;
+      await showEventsRange(fmt(start), fmt(end));
     }
     window.addEventListener('DOMContentLoaded', show);
   </script>

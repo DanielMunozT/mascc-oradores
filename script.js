@@ -66,10 +66,7 @@ async function checkTeaching() {
   const endDateInput = document.getElementById('endDate').value;
   if (!startDateInput || !endDateInput) return;
 
-  const resultsDiv = document.getElementById('results');
-  resultsDiv.innerHTML = T.loading;
-  const html = await checkTeachingRange(startDateInput, endDateInput);
-  resultsDiv.innerHTML = html;
+  await showEventsRange(startDateInput, endDateInput);
 }
 
 async function checkTeachingRange(startDateInput, endDateInput) {
@@ -114,6 +111,116 @@ async function checkTeachingRange(startDateInput, endDateInput) {
   return results.length ? results.join('') : `<p>${T.not_teaching}</p>`;
 }
 
+const US_STATES = new Set([
+  'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY','DC'
+]);
+
+function parseLocation(loc) {
+  if (!loc) return { city: '', state: '', country: '' };
+  const commaParts = loc.split(',');
+  if (commaParts.length >= 3) {
+    const country = commaParts.pop().trim();
+    const state = commaParts.pop().trim();
+    const city = commaParts.pop().trim();
+    return { city, state, country };
+  }
+
+  const tokens = loc.trim().split(/\s+/);
+  for (let i = 0; i < tokens.length; i++) {
+    const t = tokens[i].replace(/[^A-Za-z]/g, '');
+    if (US_STATES.has(t)) {
+      const city = tokens[i - 1] || '';
+      const country = tokens.slice(i + 1).filter(tok => isNaN(tok)).join(' ').trim();
+      return { city, state: t, country };
+    }
+  }
+
+  if (commaParts.length === 2) {
+    return { city: commaParts[0].trim(), state: '', country: commaParts[1].trim() };
+  }
+
+  return { city: '', state: '', country: loc.trim() };
+}
+
+async function getEventsInRange(startDateInput, endDateInput) {
+  const timeMin = new Date(startDateInput).toISOString();
+  const endDate = new Date(endDateInput);
+  endDate.setDate(endDate.getDate() + 1);
+  const timeMax = endDate.toISOString();
+
+  if (speakers.length === 0) await loadSpeakers();
+
+  const events = [];
+
+  await Promise.all(
+    speakers.map(({ name, calendarId }) => {
+      const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
+        calendarId
+      )}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
+
+      return fetch(url)
+        .then(res => res.json().then(data => ({ ok: res.ok, data })))
+        .then(({ ok, data }) => {
+          if (ok && data.items) {
+            data.items.forEach(e => {
+              const start = e.start.dateTime || e.start.date;
+              const end = e.end.dateTime || e.end.date;
+              const { city, state, country } = parseLocation(e.location || '');
+              events.push({
+                speaker: name,
+                event: e.summary,
+                start,
+                end,
+                city,
+                state,
+                country
+              });
+            });
+          }
+        })
+        .catch(() => {});
+    })
+  );
+
+  return events.sort((a, b) => new Date(a.start) - new Date(b.start));
+}
+
+function renderEventsTable(events) {
+  if (!events.length) return `<p>${T.not_teaching}</p>`;
+  let html =
+    '<table border="1" cellpadding="4" cellspacing="0"><thead><tr>' +
+    `<th>${T.speaker}</th>` +
+    `<th>${T.event}</th>` +
+    `<th>${T.start}</th>` +
+    `<th>${T.end}</th>` +
+    `<th>${T.city}</th>` +
+    `<th>${T.state}</th>` +
+    `<th>${T.country}</th>` +
+    '</tr></thead><tbody>';
+  events.forEach(e => {
+    html +=
+      '<tr>' +
+      `<td>${e.speaker}</td>` +
+      `<td>${e.event}</td>` +
+      `<td>${e.start}</td>` +
+      `<td>${e.end}</td>` +
+      `<td>${e.city}</td>` +
+      `<td>${e.state}</td>` +
+      `<td>${e.country}</td>` +
+      '</tr>';
+  });
+  html += '</tbody></table>';
+  return html;
+}
+
+async function showEventsRange(startDateInput, endDateInput, divId = 'results') {
+  const resultsDiv = document.getElementById(divId);
+  resultsDiv.innerHTML = T.loading;
+  const events = await getEventsInRange(startDateInput, endDateInput);
+  resultsDiv.innerHTML = renderEventsTable(events);
+}
+
 if (typeof window !== 'undefined') {
   window.checkTeachingRange = checkTeachingRange;
+  window.showEventsRange = showEventsRange;
 }
