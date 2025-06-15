@@ -45,3 +45,8 @@ const translations = {
       "is_available": "está DISPONÍVEL"
     }
   };
+
+// Allow Node.js to import translations for tests
+if (typeof module !== 'undefined') {
+  module.exports = translations;
+}
