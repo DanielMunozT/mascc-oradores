@@ -153,9 +153,32 @@ function toDateString(val) {
   return (val || '').split('T')[0];
 }
 
+const COUNTRY_OVERRIDES = {
+  'UNITED STATES': 'US',
+  'UNITED STATES OF AMERICA': 'US',
+  'U.S.A.': 'US',
+  'U.S.A': 'US',
+  'USA': 'US',
+  'U.S.': 'US',
+  'UNITED KINGDOM': 'GB',
+  'UK': 'GB',
+  'U.K.': 'GB',
+  'GREAT BRITAIN': 'GB',
+  'BRASIL': 'BR',
+  'BRAZIL': 'BR',
+  'MEXICO': 'MX',
+  'M\u00c9XICO': 'MX',
+  'SPAIN': 'ES',
+  'ESPA\u00d1A': 'ES',
+  'CANADA': 'CA',
+  'CANAD\u00c1': 'CA'
+};
+
 function flagEmoji(country) {
   if (!country) return '';
-  const cc = country.trim().slice(0, 2).toUpperCase();
+  const key = country.trim().toUpperCase();
+  const override = COUNTRY_OVERRIDES[key];
+  const cc = (override || country.trim().slice(0, 2)).toUpperCase();
   if (cc.length !== 2) return '';
   const base = 0x1f1e6;
   const first = cc.codePointAt(0);
