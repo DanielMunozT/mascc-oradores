@@ -36,10 +36,14 @@ async function checkAvailability() {
     const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
 
       return fetch(url)
-        .then(res => res.json().then(data => ({ ok: res.ok, data })))
-        .then(({ ok, data }) => {
+        .then(res => res.json().then(data => ({ ok: res.ok, status: res.status, statusText: res.statusText, data })))
+        .then(({ ok, status, statusText, data }) => {
           if (!ok || data.error) {
-            const msg = (data && data.error && data.error.message) ? data.error.message : T.calendar_private;
+            let msg = data && data.error && data.error.message;
+            if (!msg) {
+              const statusMsg = `${status} ${statusText}`.trim();
+              msg = statusMsg || T.calendar_private;
+            }
             results.push(`<p><strong>${name}</strong>: <span style="color:orange">${msg}</span></p>`);
           } else if (!data.items || data.items.length === 0) {
           const request = formUrl ? ` <a href="${formUrl}" target="_blank">${T.request_speaker}</a>` : '';
@@ -86,10 +90,14 @@ async function checkTeachingRange(startDateInput, endDateInput) {
     const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
 
       return fetch(url)
-        .then(res => res.json().then(data => ({ ok: res.ok, data })))
-        .then(({ ok, data }) => {
+        .then(res => res.json().then(data => ({ ok: res.ok, status: res.status, statusText: res.statusText, data })))
+        .then(({ ok, status, statusText, data }) => {
         if (!ok || data.error) {
-          const msg = (data && data.error && data.error.message) ? data.error.message : T.calendar_private;
+          let msg = data && data.error && data.error.message;
+          if (!msg) {
+            const statusMsg = `${status} ${statusText}`.trim();
+            msg = statusMsg || T.calendar_private;
+          }
           results.push(`<p><strong>${name}</strong>: <span style="color:orange">${msg}</span></p>`);
         } else if (data.items && data.items.length > 0) {
           const schedule = calendarUrl ? ` <a href="${calendarUrl}" target="_blank">View Calendar</a>` : '';
