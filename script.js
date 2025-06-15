@@ -148,6 +148,10 @@ async function getEventsInRange(startDateInput, endDateInput) {
   return events.sort((a, b) => new Date(a.start) - new Date(b.start));
 }
 
+function toDateString(val) {
+  return (val || '').split('T')[0];
+}
+
 function renderEventsTable(events) {
   let html =
     '<table border="1" cellpadding="4" cellspacing="0"><thead><tr>' +
@@ -165,8 +169,8 @@ function renderEventsTable(events) {
         '<tr>' +
         `<td>${e.speaker}</td>` +
         `<td>${e.event}</td>` +
-        `<td>${e.start}</td>` +
-        `<td>${e.end}</td>` +
+        `<td>${toDateString(e.start)}</td>` +
+        `<td>${toDateString(e.end)}</td>` +
         `<td>${e.city}</td>` +
         `<td>${e.state}</td>` +
         `<td>${e.country}</td>` +
