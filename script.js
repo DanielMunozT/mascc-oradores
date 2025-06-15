@@ -116,7 +116,7 @@ async function getEventsInRange(startDateInput, endDateInput) {
   const events = [];
 
   await Promise.all(
-    speakers.map(({ name, calendarId }) => {
+    speakers.map(({ name, calendarId, calendarUrl }) => {
       const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
         calendarId
       )}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
@@ -136,7 +136,8 @@ async function getEventsInRange(startDateInput, endDateInput) {
                 end,
                 city,
                 state,
-                country
+                country,
+                calendarUrl
               });
             });
           }
@@ -162,6 +163,7 @@ function renderEventsTable(events) {
     `<th>${T.city}</th>` +
     `<th>${T.state}</th>` +
     `<th>${T.country}</th>` +
+    `<th>${T.calendar}</th>` +
     '</tr></thead><tbody>';
   if (events.length) {
     events.forEach(e => {
@@ -174,10 +176,11 @@ function renderEventsTable(events) {
         `<td>${e.city}</td>` +
         `<td>${e.state}</td>` +
         `<td>${e.country}</td>` +
+        `<td><a href="${e.calendarUrl}" target="_blank">${T.calendar}</a></td>` +
         '</tr>';
     });
   } else {
-    html += `<tr><td colspan="7">${T.not_teaching}</td></tr>`;
+    html += `<tr><td colspan="8">${T.not_teaching}</td></tr>`;
   }
   html += '</tbody></table>';
   return html;

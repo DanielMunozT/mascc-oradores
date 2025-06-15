@@ -24,6 +24,7 @@ const translations = {
       ,"city": "City"
       ,"state": "State"
       ,"country": "Country"
+      ,"calendar": "Calendar"
     },
     "es": {
       "title": "Programador de MASCC",
@@ -50,6 +51,7 @@ const translations = {
       ,"city": "Ciudad"
       ,"state": "Estado"
       ,"country": "País"
+      ,"calendar": "Calendario"
     },
     "pt": {
       "title": "Agendador de MASCC",
@@ -76,6 +78,7 @@ const translations = {
       ,"city": "Cidade"
       ,"state": "Estado"
       ,"country": "País"
+      ,"calendar": "Calendário"
     }
   };
 
