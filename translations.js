@@ -1,6 +1,6 @@
 const translations = {
     "en": {
-      "title": "MASCC Scheduler",
+      "title": "MAWC Scheduler",
       "home": "Home",
       "list": "📋 List of Speakers & Calendars",
       "availability": "📅 Check Availability by Date Range",
