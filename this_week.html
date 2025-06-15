@@ -24,11 +24,31 @@
       max-width: 600px;
       margin: auto;
     }
+
+    input,
+    button {
+      font-size: 1em;
+      padding: 0.5em;
+      margin: 0.3em 0;
+      width: 100%;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
   </style>
 </head>
 <body>
   <h1 id="title"></h1>
   <script>document.getElementById('title').textContent = T.this_week;</script>
+  <p id="range"></p>
   <div id="results"></div>
   <script src="script.js"></script>
   <script>
@@ -49,9 +69,13 @@
     function fmt(d){
       return d.toISOString().split('T')[0];
     }
+    function setRangeText(start, end){
+      document.getElementById('range').textContent = `${fmt(start)} - ${fmt(end)}`;
+    }
     async function show(){
       const start = startOfWeek(new Date());
       const end = endOfWeek(new Date());
+      setRangeText(start, end);
       const html = await checkTeachingRange(fmt(start), fmt(end));
       document.getElementById('results').innerHTML = html;
     }
