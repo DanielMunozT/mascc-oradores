@@ -200,10 +200,6 @@ function flagEmoji(country) {
   );
 }
 
-function flagFromLocation(loc) {
-  const { country } = parseLocation(loc || '');
-  return flagEmoji(country);
-}
 
 function renderEventsTable(events) {
   let html =
@@ -248,6 +244,5 @@ async function showEventsRange(startDateInput, endDateInput, divId = 'results') 
 if (typeof window !== 'undefined') {
   window.checkTeachingRange = checkTeachingRange;
   window.showEventsRange = showEventsRange;
-  window.flagFromLocation = flagFromLocation;
   window.flagEmoji = flagEmoji;
 }
