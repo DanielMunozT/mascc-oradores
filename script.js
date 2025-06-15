@@ -71,23 +71,23 @@ async function checkTeaching() {
 
   const results = [];
 
-  await Promise.all(speakers.map(({ name, calendarId }) => {
+  await Promise.all(speakers.map(({ name, calendarId, calendarUrl }) => {
     const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
 
     return fetch(url)
       .then(res => res.json())
       .then(data => {
-        if (!data.items || data.items.length === 0) {
-          results.push(`<p><strong>${name}</strong>: <span style="color:green">${T.not_teaching}</span></p>`);
-        } else {
-          results.push(`<p><strong>${name}</strong>: <span style="color:red">${T.is_teaching}</span></p><ul>` +
+        if (data.items && data.items.length > 0) {
+          const schedule = calendarUrl ? ` <a href="${calendarUrl}" target="_blank">View Calendar</a>` : '';
+          results.push(`<p><strong>${name}</strong>${schedule}</p><ul>` +
             data.items.map(e => {
               const time = e.start.dateTime || e.start.date;
-              return `<li>${e.summary} – ${time}</li>`;
+              const loc = e.location ? ` – ${e.location}` : '';
+              return `<li>${e.summary} – ${time}${loc}</li>`;
             }).join('') + '</ul>');
         }
       });
   }));
 
-  resultsDiv.innerHTML = results.join('');
+  resultsDiv.innerHTML = results.length ? results.join('') : `<p>${T.not_teaching}</p>`;
 }
