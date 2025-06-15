@@ -109,7 +109,7 @@
           const name = `<strong>${speaker.name}</strong>`;
           const calendar = `<a href="${speaker.calendarUrl}" target="_blank">View Calendar</a>`;
           const location = speaker.location
-            ? `<br/>${flagFromLocation(speaker.location)} ${speaker.location}`
+            ? `<br/>${flagEmoji(speaker.normalizedCountryCode)} ${speaker.location}`
             : "";
           const langs = speaker.languages ? `<br/>🗣️ ${speaker.languages.join(', ')}` : "";
           const requestLink = speaker.formUrl

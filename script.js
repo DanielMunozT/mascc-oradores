@@ -32,10 +32,14 @@ async function checkAvailability() {
 
   const results = [];
 
-  await Promise.all(speakers.map(({ name, calendarId, formUrl, location }) => {
-    const { city, state, country } = parseLocation(location || '');
-    const parts = [city, state, country].filter(Boolean).join(', ');
-    const loc = parts ? `<br/>${flagFromLocation(location)} ${parts}` : '';
+  await Promise.all(
+    speakers.map(
+      ({ name, calendarId, formUrl, location, normalizedCountryCode }) => {
+        const { city, state, country } = parseLocation(location || '');
+        const parts = [city, state, country].filter(Boolean).join(', ');
+        const loc = parts
+          ? `<br/>${flagEmoji(normalizedCountryCode)} ${parts}`
+          : '';
     const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
 
       return fetch(url)
@@ -242,4 +246,5 @@ if (typeof window !== 'undefined') {
   window.checkTeachingRange = checkTeachingRange;
   window.showEventsRange = showEventsRange;
   window.flagFromLocation = flagFromLocation;
+  window.flagEmoji = flagEmoji;
 }
