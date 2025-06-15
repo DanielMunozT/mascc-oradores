@@ -34,13 +34,16 @@ async function checkAvailability() {
 
   await Promise.all(
     speakers.map(
-      ({ name, calendarId, formUrl, location, normalizedCountryCode }) => {
+      ({ name, calendarId, formUrl, location, normalizedCountryCode, languages }) => {
         const { city, state, country } = parseLocation(location || '');
         const parts = [city, state, country].filter(Boolean).join(', ');
         const loc = parts
           ? `<br/>${flagEmoji(normalizedCountryCode)} ${parts}`
           : '';
-    const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
+        const langs = languages && languages.length
+          ? `<br/>🗣️ ${languages.join(', ')}`
+          : '';
+        const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
 
       return fetch(url)
         .then(res => res.json().then(data => ({ ok: res.ok, status: res.status, statusText: res.statusText, data })))
@@ -51,17 +54,17 @@ async function checkAvailability() {
               const statusMsg = `${status} ${statusText}`.trim();
               msg = statusMsg || T.calendar_private;
             }
-            results.push(`<p><strong>${name}</strong>${loc}: <span style="color:orange">${msg}</span></p>`);
+            results.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`);
           } else if (!data.items || data.items.length === 0) {
             const request = formUrl ? ` <a href="${formUrl}" target="_blank">${T.request_speaker}</a>` : '';
-            results.push(`<p><strong>${name}</strong>${loc}: <span style="color:green">${T.available}</span>${request}</p>`);
+            results.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:green">${T.available}</span>${request}</p>`);
           } else {
             // Speaker is teaching in this range; do not include in results
           }
         })
       .catch(err => {
         const msg = err && err.message ? err.message : T.calendar_private;
-        results.push(`<p><strong>${name}</strong>${loc}: <span style="color:orange">${msg}</span></p>`);
+        results.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`);
       });
   }));
 
