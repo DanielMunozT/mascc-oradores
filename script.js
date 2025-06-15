@@ -64,15 +64,19 @@ async function checkTeaching() {
   const endDateInput = document.getElementById('endDate').value;
   if (!startDateInput || !endDateInput) return;
 
+  const resultsDiv = document.getElementById('results');
+  resultsDiv.innerHTML = T.loading;
+  const html = await checkTeachingRange(startDateInput, endDateInput);
+  resultsDiv.innerHTML = html;
+}
+
+async function checkTeachingRange(startDateInput, endDateInput) {
   const timeMin = new Date(startDateInput).toISOString();
   const endDate = new Date(endDateInput);
   endDate.setDate(endDate.getDate() + 1);
   const timeMax = endDate.toISOString();
 
   if (speakers.length === 0) await loadSpeakers();
-
-  const resultsDiv = document.getElementById('results');
-  resultsDiv.innerHTML = T.loading;
 
   const results = [];
 
@@ -99,5 +103,9 @@ async function checkTeaching() {
       });
   }));
 
-  resultsDiv.innerHTML = results.length ? results.join('') : `<p>${T.not_teaching}</p>`;
+  return results.length ? results.join('') : `<p>${T.not_teaching}</p>`;
+}
+
+if (typeof window !== 'undefined') {
+  window.checkTeachingRange = checkTeachingRange;
 }
