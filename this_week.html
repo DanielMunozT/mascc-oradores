@@ -27,7 +27,8 @@
   </style>
 </head>
 <body>
-  <h1><script>document.write(T.this_week)</script></h1>
+  <h1 id="title"></h1>
+  <script>document.getElementById('title').textContent = T.this_week;</script>
   <div id="results"></div>
   <script src="script.js"></script>
   <script>
