@@ -5,6 +5,8 @@
     "calendarUrl": "https://calendar.google.com/calendar/embed?src=cmm525flhknka2583pafiafb78%40group.calendar.google.com&ctz=America%2FLos_Angeles",
     "location": "Bothell, WA, USA",
     "countryCode": "US",
+    "normalizedCountryCode": "US",
+    "countryCodeInfo": "ISO 3166-1 alpha-2 codes: https://www.iban.com/country-codes",
     "languages": ["English", "Spanish", "Portuguese"],
     "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdS6jft3dS_CZQv6wipBniGsXDIKj1cyrTHdyRHUeSV7JNCvA/viewform?usp=pp_url&entry.986885581=Daniel+Munoz"
   }
