@@ -17,6 +17,13 @@ const translations = {
       "is_teaching": "is TEACHING:",
       "is_available": "is AVAILABLE",
       "calendar_private": "CALENDAR NOT PUBLIC"
+      ,"speaker": "Speaker"
+      ,"event": "Event"
+      ,"start": "Start"
+      ,"end": "End"
+      ,"city": "City"
+      ,"state": "State"
+      ,"country": "Country"
     },
     "es": {
       "title": "Programador de MASCC",
@@ -36,6 +43,13 @@ const translations = {
       "is_teaching": "está ENSEÑANDO:",
       "is_available": "está DISPONIBLE",
       "calendar_private": "CALENDARIO NO PÚBLICO"
+      ,"speaker": "Orador"
+      ,"event": "Evento"
+      ,"start": "Inicio"
+      ,"end": "Fin"
+      ,"city": "Ciudad"
+      ,"state": "Estado"
+      ,"country": "País"
     },
     "pt": {
       "title": "Agendador de MASCC",
@@ -55,6 +69,13 @@ const translations = {
       "is_teaching": "está ENSINANDO:",
       "is_available": "está DISPONÍVEL",
       "calendar_private": "CALENDÁRIO NÃO PÚBLICO"
+      ,"speaker": "Orador"
+      ,"event": "Evento"
+      ,"start": "Início"
+      ,"end": "Fim"
+      ,"city": "Cidade"
+      ,"state": "Estado"
+      ,"country": "País"
     }
   };
 
