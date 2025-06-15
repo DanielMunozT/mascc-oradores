@@ -36,9 +36,11 @@ async function checkAvailability() {
     const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
 
     return fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        if (!data.items || data.items.length === 0) {
+      .then(res => res.json().then(data => ({ ok: res.ok, data })))
+      .then(({ ok, data }) => {
+        if (!ok || data.error) {
+          results.push(`<p><strong>${name}</strong>: <span style="color:orange">${T.calendar_private}</span></p>`);
+        } else if (!data.items || data.items.length === 0) {
           const request = formUrl ? ` <a href="${formUrl}" target="_blank">${T.request_speaker}</a>` : '';
           results.push(`<p><strong>${name}</strong>: <span style="color:green">${T.available}</span>${request}</p>`);
         } else {
@@ -48,6 +50,9 @@ async function checkAvailability() {
               return `<li>${e.summary} – ${time}</li>`;
             }).join('') + '</ul>');
         }
+      })
+      .catch(() => {
+        results.push(`<p><strong>${name}</strong>: <span style="color:orange">${T.calendar_private}</span></p>`);
       });
   }));
 
@@ -75,9 +80,11 @@ async function checkTeaching() {
     const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
 
     return fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        if (data.items && data.items.length > 0) {
+      .then(res => res.json().then(data => ({ ok: res.ok, data })))
+      .then(({ ok, data }) => {
+        if (!ok || data.error) {
+          results.push(`<p><strong>${name}</strong>: <span style="color:orange">${T.calendar_private}</span></p>`);
+        } else if (data.items && data.items.length > 0) {
           const schedule = calendarUrl ? ` <a href="${calendarUrl}" target="_blank">View Calendar</a>` : '';
           results.push(`<p><strong>${name}</strong>${schedule}</p><ul>` +
             data.items.map(e => {
@@ -86,6 +93,9 @@ async function checkTeaching() {
               return `<li>${e.summary} – ${time}${loc}</li>`;
             }).join('') + '</ul>');
         }
+      })
+      .catch(() => {
+        results.push(`<p><strong>${name}</strong>: <span style="color:orange">${T.calendar_private}</span></p>`);
       });
   }));
 
