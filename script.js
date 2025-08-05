@@ -3,6 +3,10 @@ const AVAILABILITY_BUFFER_DAYS = 1; // Change this if you want more/less buffer
 
 let speakers = [];
 
+function getCalendarUrl(calendarId) {
+  return `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(calendarId)}`;
+}
+
 async function loadSpeakers() {
   const res = await fetch('speakers.json');
   speakers = await res.json();
@@ -121,7 +125,7 @@ async function getEventsInRange(startDateInput, endDateInput) {
   const events = [];
 
   await Promise.all(
-    speakers.map(({ name, calendarId, calendarUrl }) => {
+    speakers.map(({ name, calendarId }) => {
       const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
         calendarId
       )}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
@@ -138,7 +142,7 @@ async function getEventsInRange(startDateInput, endDateInput) {
                 event: e.summary,
                 start,
                 end,
-                calendarUrl
+                calendarUrl: getCalendarUrl(calendarId)
               });
             });
           }
@@ -260,4 +264,5 @@ if (typeof window !== 'undefined') {
   window.endOfWeek = endOfWeek;
   window.formatDate = formatDate;
   window.setRangeText = setRangeText;
+  window.getCalendarUrl = getCalendarUrl;
 }

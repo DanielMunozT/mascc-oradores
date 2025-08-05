@@ -81,7 +81,7 @@
         const ul = document.getElementById('speakerList');
         data.forEach(speaker => {
           const name = `<strong>${speaker.name}</strong>`;
-          const calendar = `<a href="${speaker.calendarUrl}" target="_blank">${T.view_calendar}</a>`;
+          const calendar = `<a href="${getCalendarUrl(speaker.calendarId)}" target="_blank">${T.view_calendar}</a>`;
           const location = speaker.location
             ? `<br/>${flagEmoji(speaker.normalizedCountryCode)} ${speaker.location}`
             : "";
