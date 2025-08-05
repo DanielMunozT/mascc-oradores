@@ -244,7 +244,6 @@ function renderEventsTable(events) {
     `<th>${T.start}</th>` +
     `<th>${T.end}</th>` +
     `<th>${T.view_calendar}</th>` +
-    `<th>${T.follow_calendar}</th>` +
     '</tr></thead><tbody>';
   if (events.length) {
     events.forEach(e => {
@@ -255,11 +254,10 @@ function renderEventsTable(events) {
         `<td>${toDateString(e.start)}</td>` +
         `<td>${toDateString(e.end)}</td>` +
         `<td><a href="${e.calendarUrl}" target="_blank">${T.view_calendar}</a></td>` +
-        `<td><a href="${e.followUrl}" target="_blank">${T.follow_calendar}</a></td>` +
         '</tr>';
     });
   } else {
-    html += `<tr><td colspan="6">${T.not_teaching}</td></tr>`;
+    html += `<tr><td colspan="5">${T.not_teaching}</td></tr>`;
   }
   html += '</tbody></table>';
   return html;
