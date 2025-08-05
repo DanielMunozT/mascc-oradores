@@ -38,5 +38,13 @@
     "normalizedCountryCode": "PE",
     "languages": ["Español", "Português"],
     "formUrl": "https://forms.gle/DVGmCpqH4QDmjFP58"
+  },
+  {
+    "name": "Raquel Oquendo",
+    "calendarId": "4667389ecf273bdcbe538106ec17c410f08bfc68f853e91e14e31ad303059aea@group.calendar.google.com",
+    "location": "Moquegua, Perú",
+    "normalizedCountryCode": "PE",
+    "languages": ["Español"],
+    "formUrl": "https://forms.gle/kRExifPWRfFdgkts5"
   }
 ]
