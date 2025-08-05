@@ -19,5 +19,25 @@
     "normalizedCountryCode": "US",
     "languages": ["English", "Español", "Português"],
     "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdS6jft3dS_CZQv6wipBniGsXDIKj1cyrTHdyRHUeSV7JNCvA/viewform?usp=dialog"
+  },
+  {
+    "name": "Josianne Tavares",
+    "calendarId": "eb02bbb04235d17c7e8a59f9b452ff3f92fc0dfb2c68c960e7efe324c7a2f6f4@group.calendar.google.com",
+    "calendarUrl": "https://calendar.google.com/calendar/embed?src=eb02bbb04235d17c7e8a59f9b452ff3f92fc0dfb2c68c960e7efe324c7a2f6f4%40group.calendar.google.com&ctz=America%2FAraguaina",
+    "location": "Brasília, DF, Brasil",
+    "countryCode": "BR",
+    "normalizedCountryCode": "BR",
+    "languages": ["Português"],
+    "formUrl": "https://forms.gle/jTTmQuP5rLdbejp1A"
+  },
+  {
+    "name": "Omar Adolfo Fino Vargas",
+    "calendarId": "c79d0abe72d68b4ea0eb7e671c45e84eaccd41b959eab558761c04dda2ffe9ac@group.calendar.google.com",
+    "calendarUrl": "https://calendar.google.com/calendar/u/0?cid=Yzc5ZDBhYmU3MmQ2OGI0ZWEwZWI3ZTY3MWM0NWU4NGVhY2NkNDFiOTU5ZWFiNTU4NzYxYzA0ZGRhMmZmZTlhY0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
+    "location": "Moquegua, Perú",
+    "countryCode": "PE",
+    "normalizedCountryCode": "PE",
+    "languages": ["Español", "Português"],
+    "formUrl": "https://forms.gle/gAJFxmU3XBBwVFrP6"
   }
 ]
