@@ -20,6 +20,7 @@ const translations = {
       ,"end": "End"
       ,"calendar": "Calendar"
       ,"view_calendar": "View Calendar"
+      ,"follow_calendar": "Follow Calendar"
     },
     "es": {
       "title": "Programador de MASCC",
@@ -42,6 +43,7 @@ const translations = {
       ,"end": "Fin"
       ,"calendar": "Calendario"
       ,"view_calendar": "Ver Calendario"
+      ,"follow_calendar": "Seguir Calendario"
     },
     "pt": {
       "title": "Agendador de MASCC",
@@ -64,6 +66,7 @@ const translations = {
       ,"end": "Fim"
       ,"calendar": "Calendário"
       ,"view_calendar": "Ver Calendário"
+      ,"follow_calendar": "Seguir Calendário"
     }
   };
 

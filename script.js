@@ -7,6 +7,10 @@ function getCalendarUrl(calendarId) {
   return `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(calendarId)}`;
 }
 
+function getFollowUrl(calendarId) {
+  return `https://calendar.google.com/calendar/ical/${encodeURIComponent(calendarId)}/public/basic.ics`;
+}
+
 async function speakers() {
   if (!speakersCache) {
     const res = await fetch('speakers.json');
@@ -150,7 +154,8 @@ async function getEventsInRange(startDateInput, endDateInput) {
                 event: e.summary,
                 start,
                 end,
-                calendarUrl: getCalendarUrl(calendarId)
+                calendarUrl: getCalendarUrl(calendarId),
+                followUrl: getFollowUrl(calendarId)
               });
             });
           }
@@ -248,7 +253,7 @@ function renderEventsTable(events) {
         `<td>${e.event}</td>` +
         `<td>${toDateString(e.start)}</td>` +
         `<td>${toDateString(e.end)}</td>` +
-        `<td><a href="${e.calendarUrl}" target="_blank">${T.view_calendar}</a></td>` +
+        `<td><a href="${e.calendarUrl}" target="_blank">${T.view_calendar}</a> | <a href="${e.followUrl}" target="_blank">${T.follow_calendar}</a></td>` +
         '</tr>';
     });
   } else {
@@ -273,5 +278,6 @@ if (typeof window !== 'undefined') {
   window.formatDate = formatDate;
   window.setRangeText = setRangeText;
   window.getCalendarUrl = getCalendarUrl;
+  window.getFollowUrl = getFollowUrl;
   window.speakers = speakers;
 }
