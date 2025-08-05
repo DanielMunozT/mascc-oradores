@@ -12,8 +12,8 @@ async function loadSpeakers() {
   speakers = await res.json();
   speakers.sort(
     (a, b) =>
-      (b.normalizedCountryCode || '').localeCompare(a.normalizedCountryCode || '') ||
-      (b.name || '').localeCompare(a.name || '')
+      (a.normalizedCountryCode || '').localeCompare(b.normalizedCountryCode || '') ||
+      (a.name || '').localeCompare(b.name || '')
   );
 }
 
