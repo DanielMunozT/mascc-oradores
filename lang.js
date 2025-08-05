@@ -56,7 +56,7 @@ function updateLinks() {
     if (!href || href.startsWith('http') || href.startsWith('#') || href.startsWith('mailto:')) {
       return;
     }
-    const url = new URL(href, window.location.origin);
+    const url = new URL(href, window.location.href);
     url.searchParams.set('lang', LANG);
     a.setAttribute('href', url.pathname + url.search + url.hash);
   });
