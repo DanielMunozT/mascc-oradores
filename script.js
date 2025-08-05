@@ -79,11 +79,6 @@ async function checkTeaching() {
   await showEventsRange(startDateInput, endDateInput);
 }
 
-async function checkTeachingRange(startDateInput, endDateInput) {
-  const events = await getEventsInRange(startDateInput, endDateInput);
-  return renderEventsTable(events);
-}
-
 const US_STATES = new Set([
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT','VA','WA','WV','WI','WY','DC'
 ]);
@@ -159,6 +154,33 @@ function toDateString(val) {
   return (val || '').split('T')[0];
 }
 
+function formatDate(date) {
+  return date.toISOString().split('T')[0];
+}
+
+function startOfWeek(date) {
+  const d = new Date(date);
+  const day = d.getDay();
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  d.setDate(diff);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}
+
+function endOfWeek(date) {
+  const start = startOfWeek(date);
+  const end = new Date(start);
+  end.setDate(start.getDate() + 6);
+  return end;
+}
+
+function setRangeText(start, end, rangeId = 'range') {
+  const el = document.getElementById(rangeId);
+  if (el) {
+    el.textContent = `${formatDate(start)} - ${formatDate(end)}`;
+  }
+}
+
 const COUNTRY_OVERRIDES = {
   'UNITED STATES': 'US',
   'UNITED STATES OF AMERICA': 'US',
@@ -232,7 +254,10 @@ async function showEventsRange(startDateInput, endDateInput, divId = 'results') 
 }
 
 if (typeof window !== 'undefined') {
-  window.checkTeachingRange = checkTeachingRange;
   window.showEventsRange = showEventsRange;
   window.flagEmoji = flagEmoji;
+  window.startOfWeek = startOfWeek;
+  window.endOfWeek = endOfWeek;
+  window.formatDate = formatDate;
+  window.setRangeText = setRangeText;
 }
