@@ -4,9 +4,7 @@
     "calendarId": "0ca7e99a558f60e928a3e775ab8d5bf0949630d14a37f2ae542646411f569044@group.calendar.google.com",
     "calendarUrl": "https://calendar.google.com/calendar/embed?src=0ca7e99a558f60e928a3e775ab8d5bf0949630d14a37f2ae542646411f569044%40group.calendar.google.com&ctz=America%2FSao_Paulo",
     "location": "Paranaíba, MS, Brasil",
-    "countryCode": "BR",
     "normalizedCountryCode": "BR",
-    "countryCodeInfo": "ISO 3166-1 alpha-2 codes: https://www.iban.com/country-codes",
     "languages": ["Português", "Español"],
     "formUrl": "https://forms.gle/FCcjntfuuoGoGLtx5"
   },
@@ -15,7 +13,6 @@
     "calendarId": "cmm525flhknka2583pafiafb78@group.calendar.google.com",
     "calendarUrl": "https://calendar.google.com/calendar/embed?src=cmm525flhknka2583pafiafb78%40group.calendar.google.com&ctz=America%2FLos_Angeles",
     "location": "Bothell, WA, USA",
-    "countryCode": "US",
     "normalizedCountryCode": "US",
     "languages": ["English", "Español", "Português"],
     "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdS6jft3dS_CZQv6wipBniGsXDIKj1cyrTHdyRHUeSV7JNCvA/viewform?usp=dialog"
@@ -25,7 +22,6 @@
     "calendarId": "f5ce6655ed5feb654a23a79d2dda755debd873372ec8353551b972c5cb747c61@group.calendar.google.com",
     "calendarUrl": "https://calendar.google.com/calendar/embed?src=f5ce6655ed5feb654a23a79d2dda755debd873372ec8353551b972c5cb747c61%40group.calendar.google.com&ctz=America%2FBahia",
     "location": "Brasília, DF, Brasil",
-    "countryCode": "BR",
     "normalizedCountryCode": "BR",
     "languages": ["Português"],
     "formUrl": "https://forms.gle/bVL1ByhmG4wbAMKb7"
@@ -35,7 +31,6 @@
     "calendarId": "c79d0abe72d68b4ea0eb7e671c45e84eaccd41b959eab558761c04dda2ffe9ac@group.calendar.google.com",
     "calendarUrl": "https://calendar.google.com/calendar/u/0?cid=Yzc5ZDBhYmU3MmQ2OGI0ZWEwZWI3ZTY3MWM0NWU4NGVhY2NkNDFiOTU5ZWFiNTU4NzYxYzA0ZGRhMmZmZTlhY0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
     "location": "Moquegua, Perú",
-    "countryCode": "PE",
     "normalizedCountryCode": "PE",
     "languages": ["Español", "Português"],
     "formUrl": "https://forms.gle/gAJFxmU3XBBwVFrP6"
