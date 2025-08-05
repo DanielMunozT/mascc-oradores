@@ -18,7 +18,6 @@ const translations = {
       ,"event": "Event"
       ,"start": "Start"
       ,"end": "End"
-      ,"calendar": "Calendar"
       ,"view_calendar": "View Calendar"
       ,"follow_calendar": "Follow Calendar"
     },
@@ -41,7 +40,6 @@ const translations = {
       ,"event": "Evento"
       ,"start": "Inicio"
       ,"end": "Fin"
-      ,"calendar": "Calendario"
       ,"view_calendar": "Ver Calendario"
       ,"follow_calendar": "Seguir Calendario"
     },
@@ -64,7 +62,6 @@ const translations = {
       ,"event": "Evento"
       ,"start": "Início"
       ,"end": "Fim"
-      ,"calendar": "Calendário"
       ,"view_calendar": "Ver Calendário"
       ,"follow_calendar": "Seguir Calendário"
     }
