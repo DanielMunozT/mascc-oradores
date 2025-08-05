@@ -17,10 +17,8 @@ const translations = {
       ,"event": "Event"
       ,"start": "Start"
       ,"end": "End"
-      ,"city": "City"
-      ,"state": "State"
-      ,"country": "Country"
       ,"calendar": "Calendar"
+      ,"view_calendar": "View Calendar"
     },
     "es": {
       "title": "Programador de MASCC",
@@ -40,10 +38,8 @@ const translations = {
       ,"event": "Evento"
       ,"start": "Inicio"
       ,"end": "Fin"
-      ,"city": "Ciudad"
-      ,"state": "Estado"
-      ,"country": "País"
       ,"calendar": "Calendario"
+      ,"view_calendar": "Ver Calendario"
     },
     "pt": {
       "title": "Agendador de MASCC",
@@ -63,10 +59,8 @@ const translations = {
       ,"event": "Evento"
       ,"start": "Início"
       ,"end": "Fim"
-      ,"city": "Cidade"
-      ,"state": "Estado"
-      ,"country": "País"
       ,"calendar": "Calendário"
+      ,"view_calendar": "Ver Calendário"
     }
   };
 

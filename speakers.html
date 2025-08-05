@@ -107,13 +107,13 @@
         const ul = document.getElementById('speakerList');
         data.forEach(speaker => {
           const name = `<strong>${speaker.name}</strong>`;
-          const calendar = `<a href="${speaker.calendarUrl}" target="_blank">View Calendar</a>`;
+          const calendar = `<a href="${speaker.calendarUrl}" target="_blank">${T.view_calendar}</a>`;
           const location = speaker.location
             ? `<br/>${flagEmoji(speaker.normalizedCountryCode)} ${speaker.location}`
             : "";
           const langs = speaker.languages ? `<br/>🗣️ ${speaker.languages.join(', ')}` : "";
           const requestLink = speaker.formUrl
-            ? `<br/><a href="${speaker.formUrl}" target="_blank">📨 Request this speaker</a>`
+            ? `<br/><a href="${speaker.formUrl}" target="_blank">${T.request_speaker}</a>`
             : "";
           const li = document.createElement('li');
           li.innerHTML = `${name} – ${calendar}${location}${langs}${requestLink}`;

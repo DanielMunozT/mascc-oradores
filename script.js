@@ -138,15 +138,11 @@ async function getEventsInRange(startDateInput, endDateInput) {
             data.items.forEach(e => {
               const start = e.start.dateTime || e.start.date;
               const end = e.end.dateTime || e.end.date;
-              const { city, state, country } = parseLocation(e.location || '');
               events.push({
                 speaker: name,
                 event: e.summary,
                 start,
                 end,
-                city,
-                state,
-                country,
                 calendarUrl
               });
             });
@@ -208,9 +204,6 @@ function renderEventsTable(events) {
     `<th>${T.event}</th>` +
     `<th>${T.start}</th>` +
     `<th>${T.end}</th>` +
-    `<th>${T.city}</th>` +
-    `<th>${T.state}</th>` +
-    `<th>${T.country}</th>` +
     `<th>${T.calendar}</th>` +
     '</tr></thead><tbody>';
   if (events.length) {
@@ -221,14 +214,11 @@ function renderEventsTable(events) {
         `<td>${e.event}</td>` +
         `<td>${toDateString(e.start)}</td>` +
         `<td>${toDateString(e.end)}</td>` +
-        `<td>${e.city}</td>` +
-        `<td>${e.state}</td>` +
-        `<td>${flagEmoji(e.country)} ${e.country}</td>` +
-        `<td><a href="${e.calendarUrl}" target="_blank">${T.calendar}</a></td>` +
+        `<td><a href="${e.calendarUrl}" target="_blank">${T.view_calendar}</a></td>` +
         '</tr>';
     });
   } else {
-    html += `<tr><td colspan="8">${T.not_teaching}</td></tr>`;
+    html += `<tr><td colspan="5">${T.not_teaching}</td></tr>`;
   }
   html += '</tbody></table>';
   return html;
