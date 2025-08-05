@@ -5,18 +5,7 @@
   <meta charset="UTF-8" />
   <title>Availability by Date Range</title>
   <script src="translations.js"></script>
-  <script>
-    let langParam = new URLSearchParams(window.location.search).get('lang');
-    let browserLang = (navigator.language || 'en').slice(0, 2).toLowerCase();
-    const LANG = ['en', 'es', 'pt'].includes((langParam || browserLang)) ? (langParam || browserLang) : 'en';
-    const T = {};
-    function setLanguageStrings() {
-      for (const [key, value] of Object.entries(translations[LANG] || translations['en'])) {
-        T[key] = value;
-      }
-    }
-    setLanguageStrings();
-  </script>
+  <script src="lang.js"></script>
   <style>
     body {
       font-family: sans-serif;
@@ -47,6 +36,7 @@
 </head>
 
 <body>
+  
   <p><script>document.write(`<a href="index.html?lang=${LANG}">${T.home}</a>`);</script></p>
   <h1>
     <script>document.write(T.availability)</script>
