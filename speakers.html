@@ -60,24 +60,22 @@
   <script src="translations.js"></script>
   <script src="lang.js"></script>
   <script src="script.js"></script>
-  <script>
-    document.title = T.list;
-  </script>
-</head>
+    <script>
+      document.title = T.list;
+    </script>
+  </head>
 
-<body id="speakers">
+  <body id="speakers">
 
   
   <p><script>document.write(`<a href="index.html?lang=${LANG}">${T.home}</a>`);</script></p>
 
-  <h1>
-    <script>document.write(T.list)</script>
-  </h1>
-  <ul id="speakerList"></ul>
-  <script>
-    fetch('speakers.json')
-      .then(res => res.json())
-      .then(data => {
+    <h1>
+      <script>document.write(T.list)</script>
+    </h1>
+    <ul id="speakerList"></ul>
+    <script>
+      speakers().then(data => {
         const ul = document.getElementById('speakerList');
         data.forEach(speaker => {
           const name = `<strong>${speaker.name}</strong>`;
@@ -94,8 +92,8 @@
           ul.appendChild(li);
         });
       });
-  </script>
+    </script>
 
-</body>
+  </body>
 
-</html>
+  </html>
