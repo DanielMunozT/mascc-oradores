@@ -1,20 +1,23 @@
 const API_KEY = 'AIzaSyAJnbGfYLHm4ZcMmyCp3-vyH8BLMEK2lI4';
 const AVAILABILITY_BUFFER_DAYS = 0; // Change this if you want more/less buffer
 
-let speakers = [];
+let speakersCache = null;
 
 function getCalendarUrl(calendarId) {
   return `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(calendarId)}`;
 }
 
-async function loadSpeakers() {
-  const res = await fetch('speakers.json');
-  speakers = await res.json();
-  speakers.sort(
-    (a, b) =>
-      (a.normalizedCountryCode || '').localeCompare(b.normalizedCountryCode || '') ||
-      (a.name || '').localeCompare(b.name || '')
-  );
+async function speakers() {
+  if (!speakersCache) {
+    const res = await fetch('speakers.json');
+    speakersCache = await res.json();
+    speakersCache.sort(
+      (a, b) =>
+        (a.normalizedCountryCode || '').localeCompare(b.normalizedCountryCode || '') ||
+        (a.name || '').localeCompare(b.name || '')
+    );
+  }
+  return speakersCache;
 }
 
 async function checkAvailability() {
@@ -34,7 +37,7 @@ async function checkAvailability() {
   const timeMin = bufferedStart.toISOString();
   const timeMax = bufferedEnd.toISOString();
 
-  if (speakers.length === 0) await loadSpeakers();
+  const sp = await speakers();
 
   const resultsDiv = document.getElementById('results');
   resultsDiv.innerHTML = T.loading;
@@ -42,7 +45,7 @@ async function checkAvailability() {
   const results = [];
 
   await Promise.all(
-    speakers.map(
+    sp.map(
       ({ name, calendarId, formUrl, location, normalizedCountryCode, languages }) => {
         const { city, state, country } = parseLocation(location || '');
         const parts = [city, state, country].filter(Boolean).join(', ');
@@ -125,12 +128,12 @@ async function getEventsInRange(startDateInput, endDateInput) {
   endDate.setDate(endDate.getDate() + 1);
   const timeMax = endDate.toISOString();
 
-  if (speakers.length === 0) await loadSpeakers();
+  const sp = await speakers();
 
   const events = [];
 
   await Promise.all(
-    speakers.map(({ name, calendarId }) => {
+    sp.map(({ name, calendarId }) => {
       const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
         calendarId
       )}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
@@ -270,4 +273,5 @@ if (typeof window !== 'undefined') {
   window.formatDate = formatDate;
   window.setRangeText = setRangeText;
   window.getCalendarUrl = getCalendarUrl;
+  window.speakers = speakers;
 }
