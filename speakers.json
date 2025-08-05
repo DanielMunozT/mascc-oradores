@@ -1,6 +1,6 @@
 [
   {
-    "name": "Alcenio Elpidio da Silva",
+    "name": "Alcenio Elpidio",
     "calendarId": "0ca7e99a558f60e928a3e775ab8d5bf0949630d14a37f2ae542646411f569044@group.calendar.google.com",
     "calendarUrl": "https://calendar.google.com/calendar/embed?src=0ca7e99a558f60e928a3e775ab8d5bf0949630d14a37f2ae542646411f569044%40group.calendar.google.com&ctz=America%2FSao_Paulo",
     "location": "Paranaíba, MS, Brasil",
@@ -27,12 +27,21 @@
     "formUrl": "https://forms.gle/bVL1ByhmG4wbAMKb7"
   },
   {
-    "name": "Omar Adolfo Fino Vargas",
+    "name": "Omar Fino",
     "calendarId": "c79d0abe72d68b4ea0eb7e671c45e84eaccd41b959eab558761c04dda2ffe9ac@group.calendar.google.com",
-    "calendarUrl": "https://calendar.google.com/calendar/u/0?cid=Yzc5ZDBhYmU3MmQ2OGI0ZWEwZWI3ZTY3MWM0NWU4NGVhY2NkNDFiOTU5ZWFiNTU4NzYxYzA0ZGRhMmZmZTlhY0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
+    "calendarUrl": "https://calendar.google.com/calendar/embed?src=Yzc5ZDBhYmU3MmQ2OGI0ZWEwZWI3ZTY3MWM0NWU4NGVhY2NkNDFiOTU5ZWFiNTU4NzYxYzA0ZGRhMmZmZTlhY0Bncm91cC5jYWxlbmRhci5nb29nbGUuY29t",
     "location": "Moquegua, Perú",
     "normalizedCountryCode": "PE",
     "languages": ["Español", "Português"],
     "formUrl": "https://forms.gle/gAJFxmU3XBBwVFrP6"
+  },
+  {
+    "name": "Sara Oquendo",
+    "calendarId": "deb8969c4b0637ca9008efe6ca694631142f43b88c70c533eb2c34808c1e75ec@group.calendar.google.com",
+    "calendarUrl": "https://calendar.google.com/calendar/embed?src=deb8969c4b0637ca9008efe6ca694631142f43b88c70c533eb2c34808c1e75ec%40group.calendar.google.com&ctz=America%2FCaracas",
+    "location": "Moquegua, Perú",
+    "normalizedCountryCode": "PE",
+    "languages": ["Español", "Português"],
+    "formUrl": "https://forms.gle/DVGmCpqH4QDmjFP58"
   }
 ]
