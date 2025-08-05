@@ -33,7 +33,7 @@ const translations = {
       "check": "Verificar",
       "loading": "Cargando...",
       "available": "DISPONIBLE",
-      "request_speaker": "\uD83D\uDCE8 Solicitar a este orador",
+      "request_speaker": "\uD83D\uDCE8 Solicitar este orador",
       "not_teaching": "NO está enseñando en ese período",
       "calendar_private": "CALENDARIO NO PÚBLICO"
       ,"speaker": "Orador"
