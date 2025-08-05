@@ -1,5 +1,5 @@
 const API_KEY = 'AIzaSyAJnbGfYLHm4ZcMmyCp3-vyH8BLMEK2lI4';
-const AVAILABILITY_BUFFER_DAYS = 1; // Change this if you want more/less buffer
+const AVAILABILITY_BUFFER_DAYS = 0; // Change this if you want more/less buffer
 
 let speakers = [];
 
