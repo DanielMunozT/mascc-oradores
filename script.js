@@ -10,6 +10,11 @@ function getCalendarUrl(calendarId) {
 async function loadSpeakers() {
   const res = await fetch('speakers.json');
   speakers = await res.json();
+  speakers.sort(
+    (a, b) =>
+      (b.normalizedCountryCode || '').localeCompare(a.normalizedCountryCode || '') ||
+      (b.name || '').localeCompare(a.name || '')
+  );
 }
 
 async function checkAvailability() {
