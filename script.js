@@ -377,6 +377,7 @@ function renderEventsList(events, startDateInput, endDateInput) {
   const html = [];
   weeks.forEach(w => {
     if (!w.events.length) return;
+    w.events.sort((a, b) => (a.event || '').localeCompare(b.event || ''));
     html.push(
       `<h3>${formatDisplayDate(w.weekStart)} - ${formatDisplayDate(
         w.weekEnd
