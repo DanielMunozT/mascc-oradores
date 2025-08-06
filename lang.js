@@ -35,9 +35,8 @@ function changeLang(lang) {
 function renderHeader() {
   const header = document.createElement('header');
   header.innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1em;">
+    <div style="display:flex;justify-content:space-between;align-items:center;">
       <a href="index.html">${T.home}</a>
-      <div style="flex-grow:1;text-align:center;font-weight:bold;">${T.site_title}</div>
       <div>
         <label for="lang-select">🌐 Language: </label>
         <select id="lang-select">
@@ -47,7 +46,9 @@ function renderHeader() {
         </select>
       </div>
     </div>
+    <div style="text-align:center;font-weight:bold;font-size:1.5em;margin-top:0.5em;">${T.site_title}</div>
   `;
+  header.style.marginBottom = '1em';
   document.body.prepend(header);
   const select = header.querySelector('#lang-select');
   select.value = LANG;
