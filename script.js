@@ -415,4 +415,6 @@ if (typeof window !== 'undefined') {
   window.getCalendarUrl = getCalendarUrl;
   window.getFollowUrl = getFollowUrl;
   window.speakers = speakers;
+  window.checkAvailability = checkAvailability;
+  window.checkTeaching = checkTeaching;
 }
