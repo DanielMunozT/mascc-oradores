@@ -408,6 +408,48 @@ async function showEventsRange(startDateInput, endDateInput, divId = 'results') 
   resultsDiv.innerHTML = renderEventsList(events, startDateInput, endDateInput);
 }
 
+function syncInputsWithUrl() {
+  const startInput = document.getElementById('startDate');
+  const endInput = document.getElementById('endDate');
+  if (!startInput || !endInput) return;
+
+  const entireRangeInput = document.getElementById('entireRange');
+  const params = new URLSearchParams(window.location.search);
+  const startParam = params.get('from');
+  const endParam = params.get('to');
+  const entireParam = params.get('entire');
+
+  if (startParam) startInput.value = startParam;
+  if (endParam) endInput.value = endParam;
+  if (entireRangeInput) entireRangeInput.checked = entireParam === '1';
+
+  function updateUrl() {
+    const url = new URL(window.location.href);
+    if (startInput.value) url.searchParams.set('from', startInput.value);
+    else url.searchParams.delete('from');
+    if (endInput.value) url.searchParams.set('to', endInput.value);
+    else url.searchParams.delete('to');
+    if (entireRangeInput) {
+      if (entireRangeInput.checked) url.searchParams.set('entire', '1');
+      else url.searchParams.delete('entire');
+    }
+    history.replaceState(null, '', url);
+  }
+
+  startInput.addEventListener('change', updateUrl);
+  endInput.addEventListener('change', updateUrl);
+  if (entireRangeInput) entireRangeInput.addEventListener('change', updateUrl);
+
+  if (startParam && endParam) {
+    updateUrl();
+    if (entireRangeInput && typeof checkAvailability === 'function') {
+      checkAvailability();
+    } else if (!entireRangeInput && typeof checkTeaching === 'function') {
+      checkTeaching();
+    }
+  }
+}
+
 if (typeof window !== 'undefined') {
   window.showEventsRange = showEventsRange;
   window.flagEmoji = flagEmoji;
@@ -420,6 +462,7 @@ if (typeof window !== 'undefined') {
   window.speakers = speakers;
   window.checkAvailability = checkAvailability;
   window.checkTeaching = checkTeaching;
+  window.addEventListener('DOMContentLoaded', syncInputsWithUrl);
 }
 
 export {
