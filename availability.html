@@ -1,64 +1,27 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Availability by Date Range</title>
-  <script src="translations.js"></script>
-  <script src="lang.js"></script>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 1em;
-      max-width: 600px;
-      margin: auto;
-    }
-
-    input:not([type="checkbox"]),
-    button {
-      font-size: 1em;
-      padding: 0.5em;
-      margin: 0.3em 0;
-      width: 100%;
-    }
-
-    input[type="checkbox"] {
-      margin-right: 0.5em;
-      width: auto;
-    }
-
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <title data-i18n-key="availability"></title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/i18next@23.4.9/dist/umd/i18next.min.js"></script>
+  <script src="https://unpkg.com/i18next-http-backend@2.4.1/i18nextHttpBackend.min.js"></script>
+  <script src="app.js"></script>
+  <script src="script.js"></script>
 </head>
-
 <body>
-  <h1>
-    <script>document.write(T.availability)</script>
-  </h1>
-  <label>
-    <script>document.write(T.select_date)</script><br />
-    From: <input type="date" id="startDate" />
-    To: <input type="date" id="endDate" />
-  </label><br />
+  <h1 data-i18n-key="availability"></h1>
+  <label data-i18n-key="select_date"></label><br />
+  <span data-i18n-key="from"></span>: <input type="date" id="startDate" />
+  <span data-i18n-key="to"></span>: <input type="date" id="endDate" />
+  <br />
   <label>
     <input type="checkbox" id="entireRange" />
-    <script>document.write(T.must_be_available_entire_range)</script>
-  </label><br />
-  <button onclick="checkAvailability()">
-    <script>document.write(T.check)</script>
-  </button>
+    <span data-i18n-key="must_be_available_entire_range"></span>
+  </label>
+  <br />
+  <button onclick="checkAvailability()" data-i18n-key="check"></button>
   <div id="results"></div>
-  <script src="script.js"></script>
 </body>
-
 </html>

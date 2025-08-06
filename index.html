@@ -1,96 +1,22 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Scheduler</title>
-
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 1em;
-      max-width: 600px;
-      padding: 0 1em;
-      line-height: 1.6;
-    }
-
-    input,
-    button {
-      font-size: 1em;
-      padding: 0.5em;
-      margin-top: 0.5em;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 6px;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    h1 {
-      font-size: 1.4em;
-      margin-bottom: 0.5em;
-    }
-
-    ul {
-      padding-left: 1.2em;
-    }
-
-    li {
-      margin: 0.5em 0;
-    }
-
-    @media (min-width: 768px) {
-
-      input,
-      button {
-        width: auto;
-      }
-    }
-  </style>
-
-  <script src="translations.js"></script>
-  <script src="lang.js"></script>
-  <script>
-    document.title = T.title;
-  </script>
+  <title data-i18n-key="title"></title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/i18next@23.4.9/dist/umd/i18next.min.js"></script>
+  <script src="https://unpkg.com/i18next-http-backend@2.4.1/i18nextHttpBackend.min.js"></script>
+  <script src="app.js"></script>
 </head>
-
 <body id="index">
-
-
-
-
-  <h1>
-    <script>document.write(T.title)</script>
-  </h1>
+  <h1 data-i18n-key="title"></h1>
   <ul>
-    <li><a href="speakers.html?lang=" + LANG>
-        <script>document.write(T.list)</script>
-      </a></li>
-    <li><a href="availability.html?lang=" + LANG>
-        <script>document.write(T.availability)</script>
-      </a></li>
-    <li><a href="teaching.html?lang=" + LANG>
-        <script>document.write(T.teaching)</script>
-      </a></li>
-    <li><a href="this_week.html?lang=" + LANG>
-        <script>document.write(T.this_week)</script>
-      </a></li>
-    <li><a href="next_week.html?lang=" + LANG>
-        <script>document.write(T.next_week)</script>
-      </a></li>
+    <li><a href="speakers.html" data-i18n-key="list"></a></li>
+    <li><a href="availability.html" data-i18n-key="availability"></a></li>
+    <li><a href="teaching.html" data-i18n-key="teaching"></a></li>
+    <li><a href="this_week.html" data-i18n-key="this_week"></a></li>
+    <li><a href="next_week.html" data-i18n-key="next_week"></a></li>
   </ul>
-
 </body>
-
 </html>

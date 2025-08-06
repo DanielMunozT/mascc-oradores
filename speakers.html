@@ -1,97 +1,34 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>List of Speakers & Calendars</title>
-
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 1em;
-      max-width: 600px;
-      padding: 0 1em;
-      line-height: 1.6;
-    }
-
-    input,
-    button {
-      font-size: 1em;
-      padding: 0.5em;
-      margin-top: 0.5em;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 6px;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-
-    h1 {
-      font-size: 1.4em;
-      margin-bottom: 0.5em;
-    }
-
-    ul {
-      padding-left: 1.2em;
-    }
-
-    li {
-      margin: 0.5em 0;
-    }
-
-    @media (min-width: 768px) {
-
-      input,
-      button {
-        width: auto;
-      }
-    }
-  </style>
-
-  <script src="translations.js"></script>
-  <script src="lang.js"></script>
+  <title data-i18n-key="list"></title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/i18next@23.4.9/dist/umd/i18next.min.js"></script>
+  <script src="https://unpkg.com/i18next-http-backend@2.4.1/i18nextHttpBackend.min.js"></script>
+  <script src="app.js"></script>
   <script src="script.js"></script>
-    <script>
-      document.title = T.list;
-    </script>
-  </head>
-
-  <body id="speakers">
-
-    <h1>
-      <script>document.write(T.list)</script>
-    </h1>
-    <ul id="speakerList"></ul>
-    <script>
+</head>
+<body id="speakers">
+  <h1 data-i18n-key="list"></h1>
+  <ul id="speakerList"></ul>
+  <script>
+    document.addEventListener('i18nReady', () => {
       speakers().then(data => {
         const ul = document.getElementById('speakerList');
         data.forEach(speaker => {
           const name = `<strong>${speaker.name}</strong>`;
           const calendarLinks = `<a href="${getCalendarUrl(speaker.calendarId)}" target="_blank">${T.view_calendar}</a> | <a href="${getFollowUrl(speaker.calendarId)}" target="_blank">${T.follow_calendar}</a>`;
-          const location = speaker.location
-            ? `<br/>${flagEmoji(speaker.normalizedCountryCode)} ${speaker.location}`
-            : "";
+          const location = speaker.location ? `<br/>${flagEmoji(speaker.normalizedCountryCode)} ${speaker.location}` : "";
           const langs = speaker.languages ? `<br/>🗣️ ${speaker.languages.join(', ')}` : "";
-          const requestLink = speaker.formUrl
-            ? `<br/><a href="${speaker.formUrl}" target="_blank">${T.request_speaker}</a>`
-            : "";
+          const requestLink = speaker.formUrl ? `<br/><a href="${speaker.formUrl}" target="_blank">${T.request_speaker}</a>` : "";
           const li = document.createElement('li');
           li.innerHTML = `${name}${location}${langs}<br/>${calendarLinks}${requestLink}`;
           ul.appendChild(li);
         });
       });
-    </script>
-
-  </body>
-
-  </html>
+    });
+  </script>
+</body>
+</html>

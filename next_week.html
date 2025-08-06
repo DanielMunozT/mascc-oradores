@@ -3,56 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Week</title>
-  <script src="translations.js"></script>
-  <script src="lang.js"></script>
-  <script>
-    document.title = T.next_week;
-  </script>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 1em;
-      max-width: 600px;
-      margin: auto;
-    }
-
-    input,
-    button {
-      font-size: 1em;
-      padding: 0.5em;
-      margin: 0.3em 0;
-      width: 100%;
-    }
-
-    button {
-      background-color: #007bff;
-      color: white;
-      border: none;
-      border-radius: 5px;
-    }
-
-    button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <title data-i18n-key="next_week"></title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/i18next@23.4.9/dist/umd/i18next.min.js"></script>
+  <script src="https://unpkg.com/i18next-http-backend@2.4.1/i18nextHttpBackend.min.js"></script>
+  <script src="app.js"></script>
+  <script src="script.js"></script>
 </head>
 <body>
-  <h1 id="title"></h1>
-  <script>document.getElementById('title').textContent = T.next_week;</script>
+  <h1 id="title" data-i18n-key="next_week"></h1>
   <p id="range"></p>
   <div id="results"></div>
-  <script src="script.js"></script>
   <script>
-    async function show(){
+    document.addEventListener('i18nReady', () => {
       const today = new Date();
-      today.setDate(today.getDate()+7);
+      today.setDate(today.getDate() + 7);
       const start = startOfWeek(today);
       const end = endOfWeek(today);
       setRangeText(start, end);
-      await showEventsRange(formatDate(start), formatDate(end));
-    }
-    window.addEventListener('DOMContentLoaded', show);
+      showEventsRange(formatDate(start), formatDate(end));
+    });
   </script>
 </body>
 </html>
