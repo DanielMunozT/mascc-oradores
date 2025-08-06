@@ -1,3 +1,5 @@
+import { getCountryCode } from './countryCodeLookup.js';
+
 const API_KEY = 'AIzaSyAJnbGfYLHm4ZcMmyCp3-vyH8BLMEK2lI4';
 const AVAILABILITY_BUFFER_DAYS = 0; // Change this if you want more/less buffer
 
@@ -382,8 +384,10 @@ function renderEventsList(events, startDateInput, endDateInput) {
     );
     html.push('<ol>');
     w.events.forEach(e => {
+      const country = ((e.event || '').trim().split(/[^A-Za-zÀ-ÿ]+/)[0]) || '';
+      const flag = flagEmoji(getCountryCode(country));
       html.push(
-        `<li>${e.event}. ${e.speaker} (${formatShortRange(
+        `<li>${flag ? flag + ' ' : ''}${e.event}. ${e.speaker} (${formatShortRange(
           e.start,
           e.end
         )})</li>`
