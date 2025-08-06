@@ -1,5 +1,6 @@
 (function() {
   const supportedLangs = ['en', 'es', 'pt'];
+  window.SUPPORTED_LANGS = supportedLangs;
 
   function getCookie(name) {
     const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
