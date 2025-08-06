@@ -336,38 +336,72 @@ function flagEmoji(country) {
 }
 
 
-function renderEventsTable(events) {
-  let html =
-    '<table border="1" cellpadding="4" cellspacing="0"><thead><tr>' +
-    `<th>${T.speaker}</th>` +
-    `<th>${T.event}</th>` +
-    `<th>${T.start}</th>` +
-    `<th>${T.end}</th>` +
-    `<th>${T.view_calendar}</th>` +
-    '</tr></thead><tbody>';
-  if (events.length) {
-    events.forEach(e => {
-      html +=
-        '<tr>' +
-        `<td>${e.speaker}</td>` +
-        `<td>${e.event}</td>` +
-        `<td>${toDateString(e.start)}</td>` +
-        `<td>${toDateString(e.end)}</td>` +
-        `<td><a href="${e.calendarUrl}" target="_blank">${T.view_calendar}</a></td>` +
-        '</tr>';
-    });
-  } else {
-    html += `<tr><td colspan="5">${T.not_teaching}</td></tr>`;
+function formatShortDate(date) {
+  const lang =
+    typeof i18next !== 'undefined' && i18next.language
+      ? i18next.language
+      : 'en';
+  return new Date(date).toLocaleDateString(lang, {
+    month: 'short',
+    day: 'numeric'
+  });
+}
+
+function formatShortRange(start, end) {
+  return `${formatShortDate(start)} - ${formatShortDate(end)}`;
+}
+
+function renderEventsList(events, startDateInput, endDateInput) {
+  const start = new Date(startDateInput);
+  const end = new Date(endDateInput);
+  const weeks = [];
+  let current = startOfWeek(start);
+  while (current <= end) {
+    const weekStart = new Date(current);
+    const weekEnd = new Date(current);
+    weekEnd.setDate(weekStart.getDate() + 6);
+    weeks.push({ weekStart, weekEnd, events: [] });
+    current.setDate(current.getDate() + 7);
   }
-  html += '</tbody></table>';
-  return html;
+
+  events.forEach(e => {
+    const s = new Date(e.start);
+    const w = weeks.find(
+      w => s >= w.weekStart && s <= w.weekEnd
+    );
+    if (w) w.events.push(e);
+  });
+
+  const html = [];
+  weeks.forEach(w => {
+    html.push(
+      `<h3>${formatDisplayDate(w.weekStart)} - ${formatDisplayDate(
+        w.weekEnd
+      )}</h3>`
+    );
+    if (w.events.length) {
+      html.push('<ol>');
+      w.events.forEach(e => {
+        html.push(
+          `<li>${e.event} - ${e.speaker} (<a href="${e.calendarUrl}" target="_blank">${T.calendar}</a>) ${formatShortRange(
+            e.start,
+            e.end
+          )}</li>`
+        );
+      });
+      html.push('</ol>');
+    } else {
+      html.push(`<p>${T.not_teaching}</p>`);
+    }
+  });
+  return html.join('');
 }
 
 async function showEventsRange(startDateInput, endDateInput, divId = 'results') {
   const resultsDiv = document.getElementById(divId);
   resultsDiv.innerHTML = T.loading;
   const events = await getEventsInRange(startDateInput, endDateInput);
-  resultsDiv.innerHTML = renderEventsTable(events);
+  resultsDiv.innerHTML = renderEventsList(events, startDateInput, endDateInput);
 }
 
 if (typeof window !== 'undefined') {
