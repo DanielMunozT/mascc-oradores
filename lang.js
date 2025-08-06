@@ -47,6 +47,7 @@ function renderHeader() {
       </div>
     </div>
     <div style="text-align:center;font-weight:bold;font-size:1.5em;margin-top:0.5em;">${T.site_title}</div>
+    <div style="text-align:center;margin-top:0.25em;"><a href="${T.document_link}" target="_blank" rel="noopener noreferrer">${T.document_description}</a></div>
   `;
   header.style.marginBottom = '1em';
   document.body.prepend(header);
