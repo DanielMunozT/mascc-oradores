@@ -18,7 +18,6 @@
     document.addEventListener('i18nReady', () => {
       const start = startOfWeek(new Date());
       const end = endOfWeek(new Date());
-      setRangeText(start, end);
       showEventsRange(formatDate(start), formatDate(end));
     });
   </script>
