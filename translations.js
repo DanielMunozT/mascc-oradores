@@ -14,15 +14,17 @@ const translations = {
       "available": "AVAILABLE",
       "request_speaker": "\uD83D\uDCE8 Request this speaker",
       "not_teaching": "NOT teaching during that period",
-      "calendar_private": "CALENDAR NOT PUBLIC"
-      ,"speaker": "Speaker"
-      ,"event": "Event"
-      ,"start": "Start"
-      ,"end": "End"
-      ,"view_calendar": "View Calendar"
-      ,"follow_calendar": "Follow Calendar"
-      ,"must_be_available_entire_range": "Must be available for the entire range"
-      ,"none_available": "No speakers available"
+      "calendar_private": "CALENDAR NOT PUBLIC",
+      "speaker": "Speaker",
+      "event": "Event",
+      "start": "Start",
+      "end": "End",
+      "view_calendar": "View Calendar",
+      "follow_calendar": "Follow Calendar",
+      "must_be_available_entire_range": "Must be available for the entire range",
+      "none_available": "No speakers available",
+      "document_link": "https://docs.google.com/document/d/1DA43ee8d6fvvf8PvauI7GbMJQ_Tyzd_e1ie6qB72zhY/",
+      "document_description": "How to schedule MAWC"
     },
     "es": {
       "title": "Programador de MASCC",
@@ -39,15 +41,17 @@ const translations = {
       "available": "DISPONIBLE",
       "request_speaker": "\uD83D\uDCE8 Solicitar este orador",
       "not_teaching": "NO está enseñando en ese período",
-      "calendar_private": "CALENDARIO NO PÚBLICO"
-      ,"speaker": "Orador"
-      ,"event": "Evento"
-      ,"start": "Inicio"
-      ,"end": "Fin"
-      ,"view_calendar": "Ver Calendario"
-      ,"follow_calendar": "Seguir Calendario"
-      ,"must_be_available_entire_range": "Debe estar disponible durante todo el rango"
-      ,"none_available": "No hay oradores disponibles"
+      "calendar_private": "CALENDARIO NO PÚBLICO",
+      "speaker": "Orador",
+      "event": "Evento",
+      "start": "Inicio",
+      "end": "Fin",
+      "view_calendar": "Ver Calendario",
+      "follow_calendar": "Seguir Calendario",
+      "must_be_available_entire_range": "Debe estar disponible durante todo el rango",
+      "none_available": "No hay oradores disponibles",
+      "document_link": "https://docs.google.com/document/d/12r9yETGDjLMo9Nb8zbbkT4BreQrCAEy9mfirN-b7_cE/",
+      "document_description": "Cómo agendar MASCC"
     },
     "pt": {
       "title": "Agendador de MASCC",
@@ -64,15 +68,17 @@ const translations = {
       "available": "DISPONÍVEL",
       "request_speaker": "\uD83D\uDCE8 Solicitar este orador",
       "not_teaching": "NÃO está ensinando nesse período",
-      "calendar_private": "CALENDÁRIO NÃO PÚBLICO"
-      ,"speaker": "Orador"
-      ,"event": "Evento"
-      ,"start": "Início"
-      ,"end": "Fim"
-      ,"view_calendar": "Ver Calendário"
-      ,"follow_calendar": "Seguir Calendário"
-      ,"must_be_available_entire_range": "Deve estar disponível durante todo o intervalo"
-      ,"none_available": "Nenhum orador disponível"
+      "calendar_private": "CALENDÁRIO NÃO PÚBLICO",
+      "speaker": "Orador",
+      "event": "Evento",
+      "start": "Início",
+      "end": "Fim",
+      "view_calendar": "Ver Calendário",
+      "follow_calendar": "Seguir Calendário",
+      "must_be_available_entire_range": "Deve estar disponível durante todo o intervalo",
+      "none_available": "Nenhum orador disponível",
+      "document_link": "https://docs.google.com/document/d/1-j6IjAytS1a-RnwRNrzXyqbqcEDxUwDz2IBwrke2O1s/",
+      "document_description": "Como agendar MASCC"
     }
   };
 
