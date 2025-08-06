@@ -45,10 +45,9 @@
 
   function changeLang(lang) {
     setCookie('lang', lang);
-    i18next.changeLanguage(lang, () => {
-      updateContent();
-      updateLinks();
-    });
+    // Reload the page so that any JavaScript-generated content is refreshed
+    // in the newly selected language.
+    window.location.reload();
   }
 
   function changeTheme(theme) {
