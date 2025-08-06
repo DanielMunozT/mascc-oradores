@@ -21,6 +21,8 @@ const translations = {
       ,"end": "End"
       ,"view_calendar": "View Calendar"
       ,"follow_calendar": "Follow Calendar"
+      ,"must_be_available_entire_range": "Must be available for the entire range"
+      ,"none_available": "No speakers available"
     },
     "es": {
       "title": "Programador de MASCC",
@@ -44,6 +46,8 @@ const translations = {
       ,"end": "Fin"
       ,"view_calendar": "Ver Calendario"
       ,"follow_calendar": "Seguir Calendario"
+      ,"must_be_available_entire_range": "Debe estar disponible durante todo el rango"
+      ,"none_available": "No hay oradores disponibles"
     },
     "pt": {
       "title": "Agendador de MASCC",
@@ -67,6 +71,8 @@ const translations = {
       ,"end": "Fim"
       ,"view_calendar": "Ver Calendário"
       ,"follow_calendar": "Seguir Calendário"
+      ,"must_be_available_entire_range": "Deve estar disponível durante todo o intervalo"
+      ,"none_available": "Nenhum orador disponível"
     }
   };
 

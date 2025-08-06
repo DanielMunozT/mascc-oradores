@@ -27,6 +27,7 @@ async function speakers() {
 async function checkAvailability() {
   const startDateInput = document.getElementById('startDate').value;
   const endDateInput = document.getElementById('endDate').value;
+  const mustBeEntireRange = document.getElementById('entireRange')?.checked;
   if (!startDateInput || !endDateInput) return;
 
   const startDate = new Date(startDateInput);
@@ -46,7 +47,62 @@ async function checkAvailability() {
   const resultsDiv = document.getElementById('results');
   resultsDiv.innerHTML = T.loading;
 
-  const results = [];
+  if (mustBeEntireRange) {
+    const results = [];
+
+    await Promise.all(
+      sp.map(
+        ({ name, calendarId, formUrl, location, normalizedCountryCode, languages }) => {
+          const { city, state, country } = parseLocation(location || '');
+          const parts = [city, state, country].filter(Boolean).join(', ');
+          const loc = parts
+            ? `<br/>${flagEmoji(normalizedCountryCode)} ${parts}`
+            : '';
+          const langs = languages && languages.length
+            ? `<br/>🗣️ ${languages.join(', ')}`
+            : '';
+          const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
+
+        return fetch(url)
+          .then(res => res.json().then(data => ({ ok: res.ok, status: res.status, statusText: res.statusText, data })))
+          .then(({ ok, status, statusText, data }) => {
+            if (!ok || data.error) {
+              let msg = data && data.error && data.error.message;
+              if (!msg) {
+                const statusMsg = `${status} ${statusText}`.trim();
+                msg = statusMsg || T.calendar_private;
+              }
+              results.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`);
+            } else if (!data.items || data.items.length === 0) {
+              const request = formUrl ? ` <a href="${formUrl}" target="_blank">${T.request_speaker}</a>` : '';
+              results.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:green">${T.available}</span>${request}</p>`);
+            } else {
+              // Speaker is teaching in this range; do not include in results
+            }
+          })
+        .catch(err => {
+          const msg = err && err.message ? err.message : T.calendar_private;
+          results.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`);
+        });
+    }));
+
+    resultsDiv.innerHTML = results.join('');
+    return;
+  }
+
+  const weeks = [];
+  let current = startOfWeek(startDate);
+  while (current <= endDate) {
+    const weekStart = new Date(current);
+    const weekEnd = new Date(current);
+    weekEnd.setDate(weekStart.getDate() + 6);
+    const rangeStart = weekStart < startDate ? startDate : weekStart;
+    const rangeEnd = weekEnd > endDate ? endDate : weekEnd;
+    weeks.push({ weekStart, weekEnd, rangeStart, rangeEnd, available: [] });
+    current.setDate(current.getDate() + 7);
+  }
+
+  const errors = [];
 
   await Promise.all(
     sp.map(
@@ -70,21 +126,33 @@ async function checkAvailability() {
               const statusMsg = `${status} ${statusText}`.trim();
               msg = statusMsg || T.calendar_private;
             }
-            results.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`);
-          } else if (!data.items || data.items.length === 0) {
-            const request = formUrl ? ` <a href="${formUrl}" target="_blank">${T.request_speaker}</a>` : '';
-            results.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:green">${T.available}</span>${request}</p>`);
+            errors.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`);
           } else {
-            // Speaker is teaching in this range; do not include in results
+            weeks.forEach(w => {
+              if (!hasEventInRange(data.items, w.rangeStart, w.rangeEnd)) {
+                const request = formUrl ? ` <a href="${formUrl}" target="_blank">${T.request_speaker}</a>` : '';
+                w.available.push(`<p><strong>${name}</strong>${loc}${langs}: <span style=\"color:green\">${T.available}</span>${request}</p>`);
+              }
+            });
           }
         })
       .catch(err => {
         const msg = err && err.message ? err.message : T.calendar_private;
-        results.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`);
+        errors.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`);
       });
   }));
 
-  resultsDiv.innerHTML = results.join('');
+  const html = [];
+  weeks.forEach(w => {
+    html.push(`<h3>${formatDate(w.weekStart)} - ${formatDate(w.weekEnd)}</h3>`);
+    if (w.available.length) {
+      html.push(w.available.join(''));
+    } else {
+      html.push(`<p>${T.none_available}</p>`);
+    }
+  });
+  html.push(errors.join(''));
+  resultsDiv.innerHTML = html.join('');
 }
 
 async function checkTeaching() {
@@ -124,6 +192,15 @@ function parseLocation(loc) {
   }
 
   return { city: '', state: '', country: loc.trim() };
+}
+
+function hasEventInRange(items, start, end) {
+  if (!items || !items.length) return false;
+  return items.some(e => {
+    const s = new Date(e.start.dateTime || e.start.date);
+    const t = new Date(e.end.dateTime || e.end.date);
+    return s <= end && t >= start;
+  });
 }
 
 async function getEventsInRange(startDateInput, endDateInput) {
