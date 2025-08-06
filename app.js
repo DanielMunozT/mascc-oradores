@@ -1,18 +1,31 @@
 (function() {
   const supportedLangs = ['en', 'es', 'pt'];
-  const urlLang = new URLSearchParams(window.location.search).get('lang');
-  const storedLang = localStorage.getItem('lang');
-  const browserLang = (navigator.language || 'en').slice(0,2).toLowerCase();
-  const initialLang = supportedLangs.includes(urlLang)
-    ? urlLang
-    : supportedLangs.includes(storedLang)
-    ? storedLang
-    : supportedLangs.includes(browserLang)
-    ? browserLang
-    : 'en';
 
-  const storedTheme = localStorage.getItem('theme') || 'light';
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+
+  function setCookie(name, value) {
+    const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
+    document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/`;
+  }
+
+  const cookieLang = getCookie('lang');
+  const browserLang = (navigator.language || 'en').slice(0,2).toLowerCase();
+  const defaultLang = ['es','pt'].includes(browserLang) ? browserLang : 'en';
+  const initialLang = supportedLangs.includes(cookieLang) ? cookieLang : defaultLang;
+  setCookie('lang', initialLang);
+
+  const storedTheme = getCookie('theme') || 'light';
   document.documentElement.setAttribute('data-theme', storedTheme);
+  setCookie('theme', storedTheme);
+
+  const currentUrl = new URL(window.location.href);
+  if (currentUrl.searchParams.has('lang')) {
+    currentUrl.searchParams.delete('lang');
+    window.history.replaceState({}, '', currentUrl.pathname + currentUrl.search + currentUrl.hash);
+  }
 
   i18next.use(i18nextHttpBackend).init({
     lng: initialLang,
@@ -30,7 +43,7 @@
   });
 
   function changeLang(lang) {
-    localStorage.setItem('lang', lang);
+    setCookie('lang', lang);
     i18next.changeLanguage(lang, () => {
       updateContent();
       updateLinks();
@@ -38,7 +51,7 @@
   }
 
   function changeTheme(theme) {
-    localStorage.setItem('theme', theme);
+    setCookie('theme', theme);
     document.documentElement.setAttribute('data-theme', theme);
   }
 
@@ -118,7 +131,7 @@
         return;
       }
       const url = new URL(href, window.location.href);
-      url.searchParams.set('lang', i18next.language);
+      url.searchParams.delete('lang');
       a.setAttribute('href', url.pathname + url.search + url.hash);
     });
   }
