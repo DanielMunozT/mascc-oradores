@@ -378,27 +378,53 @@ function renderEventsList(events, startDateInput, endDateInput) {
   weeks.forEach(w => {
     if (!w.events.length) return;
     w.events.sort((a, b) => (a.event || '').localeCompare(b.event || ''));
-    html.push(
-      `<h3>${formatDisplayDate(w.weekStart)} - ${formatDisplayDate(
-        w.weekEnd
-      )}</h3>`
-    );
-    html.push('<ol>');
-    w.events.forEach(e => {
+    const rangeText = `${formatDisplayDate(w.weekStart)} - ${formatDisplayDate(
+      w.weekEnd
+    )}`;
+    const lines = [`*${rangeText}*`];
+    const itemsHtml = [];
+    w.events.forEach((e, i) => {
       const country = ((e.event || '').trim().split(/[^A-Za-zÀ-ÿ]+/)[0]) || '';
       const flag = flagEmoji(getCountryCode(country));
       const eventName = (e.event || '').trim();
-      const eventDisplay = eventName && !eventName.endsWith('.') ? eventName + '.' : eventName;
-      html.push(
+      const eventDisplay =
+        eventName && !eventName.endsWith('.') ? eventName + '.' : eventName;
+      itemsHtml.push(
         `<li>${flag ? flag + ' ' : ''}${eventDisplay} ${e.speaker} (${formatShortRange(
           e.start,
           e.end
         )})</li>`
       );
+      lines.push(
+        `${i + 1}. ${flag ? flag + ' ' : ''}${eventDisplay} ${e.speaker} (${formatShortRange(
+          e.start,
+          e.end
+        )})`
+      );
     });
+    const copyText = encodeURIComponent(lines.join('\n'));
+    html.push(
+      `<h3>${rangeText} <a href="#" onclick="copyWeek('${copyText}'); return false;">${T.copy_week}</a></h3>`
+    );
+    html.push('<ol>');
+    html.push(...itemsHtml);
     html.push('</ol>');
   });
   return html.join('');
+}
+
+function copyWeek(encoded) {
+  const text = decodeURIComponent(encoded);
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text);
+  } else {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+  }
 }
 
 async function showEventsRange(startDateInput, endDateInput, divId = 'results') {
@@ -463,6 +489,7 @@ if (typeof window !== 'undefined') {
   window.checkAvailability = checkAvailability;
   window.checkTeaching = checkTeaching;
   window.addEventListener('DOMContentLoaded', syncInputsWithUrl);
+  window.copyWeek = copyWeek;
 }
 
 export {

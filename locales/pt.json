@@ -29,5 +29,6 @@
   "theme": "Tema",
   "light": "Claro",
   "dark": "Escuro",
-  "menu": "Menu"
+  "menu": "Menu",
+  "copy_week": "Copiar semana"
 }
