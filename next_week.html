@@ -20,7 +20,6 @@
       today.setDate(today.getDate() + 7);
       const start = startOfWeek(today);
       const end = endOfWeek(today);
-      setRangeText(start, end);
       showEventsRange(formatDate(start), formatDate(end));
     });
   </script>
