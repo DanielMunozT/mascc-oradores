@@ -147,6 +147,12 @@ async function getEventsInRange(startDateInput, endDateInput) {
         .then(({ ok, data }) => {
           if (ok && data.items) {
             data.items.forEach(e => {
+              const firstWord = ((e.summary || '')
+                .trim()
+                .split(/\s+/)[0] || '')
+                .toLowerCase();
+              if (firstWord === 'ocupado') return;
+
               const start = e.start.dateTime || e.start.date;
               const end = e.end.dateTime || e.end.date;
               events.push({
