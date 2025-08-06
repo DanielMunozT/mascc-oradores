@@ -61,9 +61,15 @@
       { href: 'availability.html', key: 'availability' },
       { href: 'teaching.html', key: 'teaching' },
       { href: 'this_week.html', key: 'this_week' },
-      { href: 'next_week.html', key: 'next_week' }
+      { href: 'next_week.html', key: 'next_week' },
+      { href: 'https://jesusyyo.com/', key: 'resources', external: true }
     ];
-    const menuLinks = menuItems.map(i => `<li><a href="${i.href}" data-i18n-key="${i.key}"></a></li>`).join('');
+    const menuLinks = menuItems
+      .map(i => {
+        const attrs = `href="${i.href}"${i.external ? ' target="_blank" rel="noopener noreferrer"' : ''}`;
+        return `<li><a ${attrs} data-i18n-key="${i.key}"></a></li>`;
+      })
+      .join('');
     const header = document.createElement('header');
     header.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;">
