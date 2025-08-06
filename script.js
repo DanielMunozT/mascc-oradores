@@ -208,8 +208,8 @@ function hasEventInRange(items, start, end) {
 }
 
 async function getEventsInRange(startDateInput, endDateInput) {
-  const timeMin = new Date(startDateInput).toISOString();
-  const endDate = new Date(endDateInput);
+  const timeMin = new Date(`${startDateInput}T00:00:00`).toISOString();
+  const endDate = new Date(`${endDateInput}T00:00:00`);
   endDate.setDate(endDate.getDate() + 1);
   const timeMax = endDate.toISOString();
 
@@ -352,8 +352,8 @@ function formatShortRange(start, end) {
 }
 
 function renderEventsList(events, startDateInput, endDateInput) {
-  const start = new Date(startDateInput);
-  const end = new Date(endDateInput);
+  const start = new Date(`${startDateInput}T00:00:00`);
+  const end = new Date(`${endDateInput}T00:00:00`);
   const weeks = [];
   let current = startOfWeek(start);
   while (current <= end) {
@@ -374,25 +374,22 @@ function renderEventsList(events, startDateInput, endDateInput) {
 
   const html = [];
   weeks.forEach(w => {
+    if (!w.events.length) return;
     html.push(
       `<h3>${formatDisplayDate(w.weekStart)} - ${formatDisplayDate(
         w.weekEnd
       )}</h3>`
     );
-    if (w.events.length) {
-      html.push('<ol>');
-      w.events.forEach(e => {
-        html.push(
-          `<li>${e.event} - ${e.speaker} (<a href="${e.calendarUrl}" target="_blank">${T.calendar}</a>) ${formatShortRange(
-            e.start,
-            e.end
-          )}</li>`
-        );
-      });
-      html.push('</ol>');
-    } else {
-      html.push(`<p>${T.not_teaching}</p>`);
-    }
+    html.push('<ol>');
+    w.events.forEach(e => {
+      html.push(
+        `<li>${e.event} - ${e.speaker} (<a href="${e.calendarUrl}" target="_blank">${T.calendar}</a>) ${formatShortRange(
+          e.start,
+          e.end
+        )}</li>`
+      );
+    });
+    html.push('</ol>');
   });
   return html.join('');
 }
