@@ -387,8 +387,10 @@ function renderEventsList(events, startDateInput, endDateInput) {
     w.events.forEach(e => {
       const country = ((e.event || '').trim().split(/[^A-Za-zÀ-ÿ]+/)[0]) || '';
       const flag = flagEmoji(getCountryCode(country));
+      const eventName = (e.event || '').trim();
+      const eventDisplay = eventName && !eventName.endsWith('.') ? eventName + '.' : eventName;
       html.push(
-        `<li>${flag ? flag + ' ' : ''}${e.event}. ${e.speaker} (${formatShortRange(
+        `<li>${flag ? flag + ' ' : ''}${eventDisplay} ${e.speaker} (${formatShortRange(
           e.start,
           e.end
         )})</li>`
