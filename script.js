@@ -419,3 +419,17 @@ if (typeof window !== 'undefined') {
   window.checkAvailability = checkAvailability;
   window.checkTeaching = checkTeaching;
 }
+
+export {
+  speakers,
+  getCalendarUrl,
+  getFollowUrl,
+  flagEmoji,
+  startOfWeek,
+  endOfWeek,
+  showEventsRange,
+  formatDate,
+  checkAvailability,
+  checkTeaching,
+  setRangeText
+};
