@@ -32,19 +32,24 @@ function changeLang(lang) {
   window.location.href = url.toString();
 }
 
-function renderLanguageSelector() {
-  const div = document.createElement('div');
-  div.style.marginBottom = '1em';
-  div.innerHTML = `
-    <label for="lang-select">🌐 Language: </label>
-    <select id="lang-select">
-      <option value="en">English</option>
-      <option value="es">Español</option>
-      <option value="pt">Português</option>
-    </select>
+function renderHeader() {
+  const header = document.createElement('header');
+  header.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1em;">
+      <a href="index.html">${T.home}</a>
+      <div style="flex-grow:1;text-align:center;font-weight:bold;">${T.site_title}</div>
+      <div>
+        <label for="lang-select">🌐 Language: </label>
+        <select id="lang-select">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="pt">Português</option>
+        </select>
+      </div>
+    </div>
   `;
-  document.body.prepend(div);
-  const select = div.querySelector('#lang-select');
+  document.body.prepend(header);
+  const select = header.querySelector('#lang-select');
   select.value = LANG;
   select.addEventListener('change', (e) => changeLang(e.target.value));
 }
@@ -63,7 +68,7 @@ function updateLinks() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  renderLanguageSelector();
+  renderHeader();
   updateLinks();
 });
 
