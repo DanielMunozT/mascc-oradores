@@ -404,7 +404,7 @@ function renderEventsList(events, startDateInput, endDateInput) {
     });
     const copyText = encodeURIComponent(lines.join('\n'));
     html.push(
-      `<h3>${rangeText} <a href="#" onclick="copyWeek('${copyText}'); return false;">${T.copy_week}</a></h3>`
+      `<h3>${rangeText} <a href="#" onclick="copyWeek('${copyText}', this); return false;" title="${T.copy_week}" style="font-size:0.75em;margin-left:0.5em;">📋 ${T.copy_week}</a></h3>`
     );
     html.push('<ol>');
     html.push(...itemsHtml);
@@ -413,10 +413,21 @@ function renderEventsList(events, startDateInput, endDateInput) {
   return html.join('');
 }
 
-function copyWeek(encoded) {
+function copyWeek(encoded, linkElement) {
   const text = decodeURIComponent(encoded);
+  const originalHtml = linkElement.innerHTML;
+  const originalTitle = linkElement.title;
+  const showCopied = () => {
+    linkElement.innerHTML = `✅ ${T.copied}`;
+    linkElement.title = T.copied;
+    setTimeout(() => {
+      linkElement.innerHTML = originalHtml;
+      linkElement.title = originalTitle;
+    }, 2000);
+  };
+
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(text).then(showCopied);
   } else {
     const textarea = document.createElement('textarea');
     textarea.value = text;
@@ -424,6 +435,7 @@ function copyWeek(encoded) {
     textarea.select();
     document.execCommand('copy');
     document.body.removeChild(textarea);
+    showCopied();
   }
 }
 

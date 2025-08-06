@@ -30,5 +30,6 @@
   "light": "Claro",
   "dark": "Escuro",
   "menu": "Menu",
-  "copy_week": "Copiar semana"
+  "copy_week": "Copiar semana",
+  "copied": "Copiado"
 }
