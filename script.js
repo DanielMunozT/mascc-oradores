@@ -148,7 +148,7 @@ async function checkAvailability() {
 
   const html = [];
   weeks.forEach(w => {
-    html.push(`<h3>${formatDate(w.weekStart)} - ${formatDate(w.weekEnd)}</h3>`);
+    html.push(`<h3>${formatDisplayDate(w.weekStart)} - ${formatDisplayDate(w.weekEnd)}</h3>`);
     if (w.available.length) {
       html.push(w.available.join(''));
     } else {
@@ -254,8 +254,21 @@ async function getEventsInRange(startDateInput, endDateInput) {
   return events.sort((a, b) => new Date(a.start) - new Date(b.start));
 }
 
+function formatDisplayDate(date) {
+  const lang =
+    typeof i18next !== 'undefined' && i18next.language
+      ? i18next.language
+      : 'en';
+  return new Date(date).toLocaleDateString(lang, {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+}
+
 function toDateString(val) {
-  return (val || '').split('T')[0];
+  if (!val) return '';
+  return formatDisplayDate(val);
 }
 
 function formatDate(date) {
@@ -281,7 +294,7 @@ function endOfWeek(date) {
 function setRangeText(start, end, rangeId = 'range') {
   const el = document.getElementById(rangeId);
   if (el) {
-    el.textContent = `${formatDate(start)} - ${formatDate(end)}`;
+    el.textContent = `${formatDisplayDate(start)} - ${formatDisplayDate(end)}`;
   }
 }
 
