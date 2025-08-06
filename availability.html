@@ -15,12 +15,17 @@
       margin: auto;
     }
 
-    input,
+    input:not([type="checkbox"]),
     button {
       font-size: 1em;
       padding: 0.5em;
       margin: 0.3em 0;
       width: 100%;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 0.5em;
+      width: auto;
     }
 
     button {
