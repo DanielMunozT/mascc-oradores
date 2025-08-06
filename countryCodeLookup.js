@@ -1,18 +1,4 @@
-import countries from 'https://cdn.jsdelivr.net/npm/i18n-iso-countries/index.js';
-
-const supportedLangs = (window.SUPPORTED_LANGS || ['en', 'es', 'pt']).map(l => l.toLowerCase());
-
-for (const lang of supportedLangs) {
-  try {
-    const res = await fetch(`https://cdn.jsdelivr.net/npm/i18n-iso-countries/langs/${lang}.json`);
-    if (res.ok) {
-      const locale = await res.json();
-      countries.registerLocale(locale);
-    }
-  } catch (e) {
-    // ignore registration errors
-  }
-}
+const supportedLangs = ((typeof window !== 'undefined' && window.SUPPORTED_LANGS) || ['en', 'es', 'pt']).map(l => l.toLowerCase());
 
 function normalize(str) {
   return str
@@ -24,15 +10,24 @@ function normalize(str) {
 
 function buildCountryMap() {
   const map = {};
-  const codes = countries.getAlpha2Codes();
-  for (const code of Object.keys(codes)) {
-    const names = new Set();
-    for (const lang of supportedLangs) {
-      const name = countries.getName(code, lang);
-      if (name) names.add(name);
+  const displayNames = {};
+  for (const lang of supportedLangs) {
+    try {
+      displayNames[lang] = new Intl.DisplayNames([lang], { type: 'region' });
+    } catch (e) {
+      // ignore languages not supported by Intl.DisplayNames
     }
-    for (const name of names) {
-      map[normalize(name)] = code;
+  }
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  for (let i = 0; i < letters.length; i++) {
+    for (let j = 0; j < letters.length; j++) {
+      const code = letters[i] + letters[j];
+      for (const lang of Object.keys(displayNames)) {
+        const name = displayNames[lang].of(code);
+        if (name && name.toUpperCase() !== code) {
+          map[normalize(name)] = code;
+        }
+      }
     }
   }
   return map;
@@ -43,3 +38,4 @@ const countryMap = Object.freeze(buildCountryMap());
 export function getCountryCode(inputName) {
   return countryMap[normalize(inputName)] || null;
 }
+
