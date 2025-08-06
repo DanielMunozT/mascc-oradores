@@ -503,5 +503,6 @@ export {
   formatDate,
   checkAvailability,
   checkTeaching,
-  setRangeText
+  setRangeText,
+  copyWeek
 };
