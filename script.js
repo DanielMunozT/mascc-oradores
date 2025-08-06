@@ -383,7 +383,7 @@ function renderEventsList(events, startDateInput, endDateInput) {
     html.push('<ol>');
     w.events.forEach(e => {
       html.push(
-        `<li>${e.event}. ${e.speaker} (<a href="${e.calendarUrl}" target="_blank">${T.calendar}</a>) (${formatShortRange(
+        `<li>${e.event}. ${e.speaker} (${formatShortRange(
           e.start,
           e.end
         )})</li>`
