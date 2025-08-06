@@ -74,7 +74,9 @@ async function checkAvailability() {
               }
               results.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`);
             } else if (!data.items || data.items.length === 0) {
-              const request = formUrl ? ` <a href="${formUrl}" target="_blank">${T.request_speaker}</a>` : '';
+              const request = formUrl
+                ? `<br/><a href="${formUrl}" target="_blank">${T.request_speaker}</a>`
+                : '';
               results.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:green">${T.available}</span>${request}</p>`);
             } else {
               // Speaker is teaching in this range; do not include in results
@@ -130,7 +132,9 @@ async function checkAvailability() {
           } else {
             weeks.forEach(w => {
               if (!hasEventInRange(data.items, w.rangeStart, w.rangeEnd)) {
-                const request = formUrl ? ` <a href="${formUrl}" target="_blank">${T.request_speaker}</a>` : '';
+                const request = formUrl
+                  ? `<br/><a href="${formUrl}" target="_blank">${T.request_speaker}</a>`
+                  : '';
                 w.available.push(`<p><strong>${name}</strong>${loc}${langs}: <span style=\"color:green\">${T.available}</span>${request}</p>`);
               }
             });
