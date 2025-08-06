@@ -8,20 +8,27 @@
   <script src="https://unpkg.com/i18next@23.4.9/dist/umd/i18next.min.js"></script>
   <script src="https://unpkg.com/i18next-http-backend@2.4.1/i18nextHttpBackend.min.js"></script>
   <script src="app.js"></script>
-  <script type="module" src="script.js"></script>
 </head>
 <body>
   <h1 id="title" data-i18n-key="next_week"></h1>
   <p id="range"></p>
   <div id="results"></div>
-  <script>
-    document.addEventListener('i18nReady', () => {
+  <script type="module">
+    import { startOfWeek, endOfWeek, showEventsRange, formatDate } from './script.js';
+
+    const run = () => {
       const today = new Date();
       today.setDate(today.getDate() + 7);
       const start = startOfWeek(today);
       const end = endOfWeek(today);
       showEventsRange(formatDate(start), formatDate(end));
-    });
+    };
+
+    if (window.i18next?.isInitialized) {
+      run();
+    } else {
+      document.addEventListener('i18nReady', run, { once: true });
+    }
   </script>
 </body>
 </html>
