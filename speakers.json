@@ -64,11 +64,20 @@
   },
   {
     "id": 8,
-    "name": "Sirlene Soares",
+    "name": "Sirlene Silva",
     "calendarId": "54e0b886bae92e14236e2823f424df52bc0ee1fb2b0b3afcdeb612b6fcca1d16@group.calendar.google.com",
     "location": "Quatro Barras, PR, Brasil",
     "normalizedCountryCode": "BR",
     "languages": ["Português"],
     "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfg7FwEokvUPHs5n_FVcaOG7drzc7NJw4MLZmaUqThobYpQfg/viewform"
+  },
+  {
+    "id": 9,
+    "name": "Thiago Soares",
+    "calendarId": "0603a19b52adaa2dcfbd4a9de8384a2650c615a4d0bad740f781ada2233c9aa2@group.calendar.google.com",
+    "location": "Campo Grande, MS, Brasil",
+    "normalizedCountryCode": "BR",
+    "languages": ["Español", "Português"],
+    "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSeuAa92Pfq3YSr3bAetd9-h5yM4mX5pavDDutjNV9xBmv4ySg/viewform"
   }
 ]
