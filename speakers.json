@@ -60,7 +60,7 @@
     "location": "Moquegua, Perú",
     "normalizedCountryCode": "PE",
     "languages": ["Español"],
-    "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfg7FwEokvUPHs5n_FVcaOG7drzc7NJw4MLZmaUqThobYpQfg/viewform"
+    "formUrl": "https://forms.gle/TYnna4sFNLTETtMc6"
   },
   {
     "id": 8,
@@ -69,6 +69,6 @@
     "location": "Quatro Barras, PR, Brasil",
     "normalizedCountryCode": "BR",
     "languages": ["Português"],
-    "formUrl": "https://forms.gle/FCcjntfuuoGoGLtx5"
+    "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfg7FwEokvUPHs5n_FVcaOG7drzc7NJw4MLZmaUqThobYpQfg/viewform"
   }
 ]
