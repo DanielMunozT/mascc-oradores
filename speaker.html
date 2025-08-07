@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title></title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://unpkg.com/i18next@23.4.9/dist/umd/i18next.min.js"></script>
+  <script src="https://unpkg.com/i18next-http-backend@2.4.1/i18nextHttpBackend.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body>
+  <h1 id="speakerName"></h1>
+  <div id="speakerInfo"></div>
+  <h2 data-i18n-key="scheduled_mawcs"></h2>
+  <div id="events"></div>
+  <script type="module">
+    import {
+      speakers,
+      getCalendarUrl,
+      getFollowUrl,
+      flagEmoji,
+      formatDisplayDate,
+      API_KEY
+    } from './script.js';
+    import { getCountryCode } from './countryCodeLookup.js';
+
+    function formatRangeWithYear(start, end) {
+      return `${formatDisplayDate(start)} - ${formatDisplayDate(end)}`;
+    }
+
+    async function render() {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get('id');
+      const all = await speakers();
+      const sp = all.find(s => String(s.id) === id);
+      if (!sp) return;
+
+      document.getElementById('speakerName').textContent = sp.name;
+      document.title = sp.name;
+
+      const calendarLinks = `<a href="${getCalendarUrl(sp.calendarId)}" target="_blank">${T.view_calendar}</a> | <a href="${getFollowUrl(sp.calendarId)}" target="_blank">${T.follow_calendar}</a>`;
+      const location = sp.location ? `<br/>${flagEmoji(sp.normalizedCountryCode)} ${sp.location}` : '';
+      const langs = sp.languages ? `<br/>🗣️ ${sp.languages.join(', ')}` : '';
+      const requestLink = sp.formUrl ? `<br/><a href="${sp.formUrl}" target="_blank">${T.request_speaker}</a>` : '';
+      document.getElementById('speakerInfo').innerHTML = `${location}${langs}<br/>${calendarLinks}${requestLink}`;
+
+      const now = new Date().toISOString();
+      const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(sp.calendarId)}/events?key=${API_KEY}&timeMin=${now}&singleEvents=true&orderBy=startTime`;
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        if (res.ok && data.items) {
+          const items = [];
+          data.items.forEach(e => {
+            const summary = e.summary || '';
+            const firstWord = summary.trim().split(/\s+/)[0].toLowerCase();
+            if (firstWord === 'ocupado') return;
+            const start = e.start.dateTime || e.start.date;
+            const end = e.end.dateTime || e.end.date;
+            const country = (summary.trim().split(/[^A-Za-zÀ-ÿ]+/)[0]) || '';
+            const flag = flagEmoji(getCountryCode(country));
+            const eventName = summary.trim();
+            const eventDisplay = eventName && !eventName.endsWith('.') ? eventName + '.' : eventName;
+            items.push(`<li>${flag ? flag + ' ' : ''}${eventDisplay} ${sp.name} (${formatRangeWithYear(start, end)})</li>`);
+          });
+          if (items.length) {
+            document.getElementById('events').innerHTML = `<ol>${items.join('')}</ol>`;
+          }
+        }
+      } catch (e) {}
+    }
+
+    if (window.i18next?.isInitialized) {
+      render();
+    } else {
+      document.addEventListener('i18nReady', render, { once: true });
+    }
+  </script>
+</body>
+</html>
+

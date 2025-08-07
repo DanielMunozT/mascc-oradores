@@ -536,8 +536,10 @@ export {
   endOfWeek,
   showEventsRange,
   formatDate,
+  formatDisplayDate,
   checkAvailability,
   checkTeaching,
   setRangeText,
-  copyWeek
+  copyWeek,
+  API_KEY
 };

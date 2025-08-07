@@ -19,7 +19,7 @@
       speakers().then(data => {
         const ul = document.getElementById('speakerList');
         data.forEach(speaker => {
-          const name = `<strong>${speaker.name}</strong>`;
+          const name = `<strong><a href="speaker.html?id=${speaker.id}">${speaker.name}</a></strong>`;
           const calendarLinks = `<a href="${getCalendarUrl(speaker.calendarId)}" target="_blank">${T.view_calendar}</a> | <a href="${getFollowUrl(speaker.calendarId)}" target="_blank">${T.follow_calendar}</a>`;
           const location = speaker.location ? `<br/>${flagEmoji(speaker.normalizedCountryCode)} ${speaker.location}` : '';
           const langs = speaker.languages ? `<br/>🗣️ ${speaker.languages.join(', ')}` : '';
