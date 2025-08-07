@@ -65,32 +65,47 @@ async function checkAvailability() {
             : '';
           const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
 
-        return fetch(url)
-          .then(res => res.json().then(data => ({ ok: res.ok, status: res.status, statusText: res.statusText, data })))
-          .then(({ ok, status, statusText, data }) => {
-            if (!ok || data.error) {
-              let msg = data && data.error && data.error.message;
-              if (!msg) {
-                const statusMsg = `${status} ${statusText}`.trim();
-                msg = statusMsg || T.calendar_private;
+          return fetch(url)
+            .then(res => res.json().then(data => ({ ok: res.ok, status: res.status, statusText: res.statusText, data })))
+            .then(({ ok, status, statusText, data }) => {
+              if (!ok || data.error) {
+                let msg = data && data.error && data.error.message;
+                if (!msg) {
+                  const statusMsg = `${status} ${statusText}`.trim();
+                  msg = statusMsg || T.calendar_private;
+                }
+                results.push({
+                  code: normalizedCountryCode || '',
+                  name,
+                  html: `<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`
+                });
+              } else if (!data.items || data.items.length === 0) {
+                const request = formUrl
+                  ? `<br/><a href="${formUrl}" target="_blank">${T.request_speaker}</a>`
+                  : '';
+                results.push({
+                  code: normalizedCountryCode || '',
+                  name,
+                  html: `<p><strong>${name}</strong>${loc}${langs}: <span style="color:green">${T.available}</span>${request}</p>`
+                });
+              } else {
+                // Speaker is teaching in this range; do not include in results
               }
-              results.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`);
-            } else if (!data.items || data.items.length === 0) {
-              const request = formUrl
-                ? `<br/><a href="${formUrl}" target="_blank">${T.request_speaker}</a>`
-                : '';
-              results.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:green">${T.available}</span>${request}</p>`);
-            } else {
-              // Speaker is teaching in this range; do not include in results
-            }
-          })
-        .catch(err => {
-          const msg = err && err.message ? err.message : T.calendar_private;
-          results.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`);
-        });
-    }));
+            })
+            .catch(err => {
+              const msg = err && err.message ? err.message : T.calendar_private;
+              results.push({
+                code: normalizedCountryCode || '',
+                name,
+                html: `<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`
+              });
+            });
+        }
+      )
+    );
 
-    resultsDiv.innerHTML = results.join('');
+    results.sort((a, b) => a.code.localeCompare(b.code) || a.name.localeCompare(b.name));
+    resultsDiv.innerHTML = results.map(r => r.html).join('');
     return;
   }
 
@@ -137,7 +152,11 @@ async function checkAvailability() {
                 const request = formUrl
                   ? `<br/><a href="${formUrl}" target="_blank">${T.request_speaker}</a>`
                   : '';
-                w.available.push(`<p><strong>${name}</strong>${loc}${langs}: <span style=\"color:green\">${T.available}</span>${request}</p>`);
+                w.available.push({
+                  code: normalizedCountryCode || '',
+                  name,
+                  html: `<p><strong>${name}</strong>${loc}${langs}: <span style="color:green">${T.available}</span>${request}</p>`
+                });
               }
             });
           }
@@ -146,20 +165,24 @@ async function checkAvailability() {
         const msg = err && err.message ? err.message : T.calendar_private;
         errors.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`);
       });
-  }));
+    }));
 
-  const html = [];
-  weeks.forEach(w => {
-    html.push(`<h3>${formatDisplayDate(w.weekStart)} - ${formatDisplayDate(w.weekEnd)}</h3>`);
-    if (w.available.length) {
-      html.push(w.available.join(''));
-    } else {
-      html.push(`<p>${T.none_available}</p>`);
-    }
-  });
-  html.push(errors.join(''));
-  resultsDiv.innerHTML = html.join('');
-}
+    weeks.forEach(w => {
+      w.available.sort((a, b) => a.code.localeCompare(b.code) || a.name.localeCompare(b.name));
+    });
+
+    const html = [];
+    weeks.forEach(w => {
+      html.push(`<h3>${formatDisplayDate(w.weekStart)} - ${formatDisplayDate(w.weekEnd)}</h3>`);
+      if (w.available.length) {
+        html.push(w.available.map(a => a.html).join(''));
+      } else {
+        html.push(`<p>${T.none_available}</p>`);
+      }
+    });
+    html.push(errors.join(''));
+    resultsDiv.innerHTML = html.join('');
+  }
 
 async function checkTeaching() {
   const startDateInput = document.getElementById('startDate').value;
