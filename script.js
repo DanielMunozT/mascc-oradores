@@ -77,19 +77,33 @@ async function checkAvailability() {
                 results.push({
                   code: normalizedCountryCode || '',
                   name,
-                  html: `<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`
-                });
-              } else if (!data.items || data.items.length === 0) {
-                const request = formUrl
-                  ? `<br/><a href="${formUrl}" target="_blank">${T.request_speaker}</a>`
-                  : '';
-                results.push({
-                  code: normalizedCountryCode || '',
-                  name,
-                  html: `<p><strong>${name}</strong>${loc}${langs}: <span style="color:green">${T.available}</span>${request}</p>`
+                  html: `<p><strong>${name}</strong>${loc}${langs}<br/><span style="color:orange">${msg}</span></p>`
                 });
               } else {
-                // Speaker is teaching in this range; do not include in results
+                let hasRegional = false;
+                let hasOther = false;
+                (data.items || []).forEach(e => {
+                  const firstWord = ((e.summary || '')
+                    .trim()
+                    .split(/\s+/)[0] || '')
+                    .toLowerCase();
+                  if (firstWord === 'regional') hasRegional = true;
+                  else hasOther = true;
+                });
+                if (!hasOther) {
+                  const request = formUrl
+                    ? `<br/><a href="${formUrl}" target="_blank">${T.request_speaker}</a>`
+                    : '';
+                  const status = hasRegional
+                    ? T.available_only_in_region
+                    : T.available;
+                  results.push({
+                    code: normalizedCountryCode || '',
+                    name,
+                    html: `<p><strong>${name}</strong>${loc}${langs}<br/><span style="color:green">${status}</span>${request}</p>`
+                  });
+                }
+                // Speaker is teaching in this range if there are other events
               }
             })
             .catch(err => {
@@ -97,7 +111,7 @@ async function checkAvailability() {
               results.push({
                 code: normalizedCountryCode || '',
                 name,
-                html: `<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`
+                html: `<p><strong>${name}</strong>${loc}${langs}<br/><span style="color:orange">${msg}</span></p>`
               });
             });
         }
@@ -145,17 +159,34 @@ async function checkAvailability() {
               const statusMsg = `${status} ${statusText}`.trim();
               msg = statusMsg || T.calendar_private;
             }
-            errors.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`);
+            errors.push(`<p><strong>${name}</strong>${loc}${langs}<br/><span style="color:orange">${msg}</span></p>`);
           } else {
             weeks.forEach(w => {
-              if (!hasEventInRange(data.items, w.rangeStart, w.rangeEnd)) {
+              let hasRegional = false;
+              let hasOther = false;
+              (data.items || []).forEach(e => {
+                const firstWord = ((e.summary || '')
+                  .trim()
+                  .split(/\s+/)[0] || '')
+                  .toLowerCase();
+                const s = new Date(e.start.dateTime || e.start.date);
+                const t = new Date(e.end.dateTime || e.end.date);
+                if (s <= w.rangeEnd && t >= w.rangeStart) {
+                  if (firstWord === 'regional') hasRegional = true;
+                  else hasOther = true;
+                }
+              });
+              if (!hasOther) {
                 const request = formUrl
                   ? `<br/><a href="${formUrl}" target="_blank">${T.request_speaker}</a>`
                   : '';
+                const status = hasRegional
+                  ? T.available_only_in_region
+                  : T.available;
                 w.available.push({
                   code: normalizedCountryCode || '',
                   name,
-                  html: `<p><strong>${name}</strong>${loc}${langs}: <span style="color:green">${T.available}</span>${request}</p>`
+                  html: `<p><strong>${name}</strong>${loc}${langs}<br/><span style="color:green">${status}</span>${request}</p>`
                 });
               }
             });
@@ -163,7 +194,7 @@ async function checkAvailability() {
         })
       .catch(err => {
         const msg = err && err.message ? err.message : T.calendar_private;
-        errors.push(`<p><strong>${name}</strong>${loc}${langs}: <span style="color:orange">${msg}</span></p>`);
+        errors.push(`<p><strong>${name}</strong>${loc}${langs}<br/><span style="color:orange">${msg}</span></p>`);
       });
     }));
 
@@ -223,14 +254,6 @@ function parseLocation(loc) {
   return { city: '', state: '', country: loc.trim() };
 }
 
-function hasEventInRange(items, start, end) {
-  if (!items || !items.length) return false;
-  return items.some(e => {
-    const s = new Date(e.start.dateTime || e.start.date);
-    const t = new Date(e.end.dateTime || e.end.date);
-    return s <= end && t >= start;
-  });
-}
 
 async function getEventsInRange(startDateInput, endDateInput) {
   const timeMin = new Date(`${startDateInput}T00:00:00`).toISOString();
@@ -257,7 +280,7 @@ async function getEventsInRange(startDateInput, endDateInput) {
                 .trim()
                 .split(/\s+/)[0] || '')
                 .toLowerCase();
-              if (firstWord === 'ocupado') return;
+              if (firstWord === 'ocupado' || firstWord === 'regional') return;
 
               const start = e.start.dateTime || e.start.date;
               const end = e.end.dateTime || e.end.date;
