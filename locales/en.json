@@ -12,6 +12,7 @@
   "check": "Check",
   "loading": "Loading...",
   "available": "AVAILABLE",
+  "available_only_in_region": "AVAILABLE ONLY IN THEIR REGION",
   "request_speaker": "\uD83D\uDCE8 Request this speaker",
   "calendar_private": "CALENDAR NOT PUBLIC",
   "speaker": "Speaker",
