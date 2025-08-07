@@ -54,5 +54,13 @@
     "normalizedCountryCode": "PE",
     "languages": ["Español"],
     "formUrl": "https://forms.gle/TYnna4sFNLTETtMc6"
+  },
+  {
+    "name": "Sirlene Soares",
+    "calendarId": "0ca7e99a558f60e928a3e775ab8d5bf0949630d14a37f2ae542646411f569044@group.calendar.google.com",
+    "location": "Quatro Barras, PR, Brasil",
+    "normalizedCountryCode": "BR",
+    "languages": ["Português"],
+    "formUrl": "https://forms.gle/FCcjntfuuoGoGLtx5"
   }
 ]
