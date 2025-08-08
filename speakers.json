@@ -177,5 +177,14 @@
     "normalizedCountryCode": "BR",
     "languages": ["pt", "es"],
     "formUrl": "https://forms.gle/eWrYKr1gpno1JBqFA"
+  },
+  {
+    "id": 20,
+    "name": "Gustavo Soares",
+    "calendarId": "f07dfe4b65bd80ee86f68f7197262947216bfa3694fbc3d034a2f2771172971a@group.calendar.google.com",
+    "location": "Novo Hamburgo, RS, Brasil",
+    "normalizedCountryCode": "BR",
+    "languages": ["pt"],
+    "formUrl": "https://forms.gle/gn31dVDNpskgwhAq9"
   }
 ]
