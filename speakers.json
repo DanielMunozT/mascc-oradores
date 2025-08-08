@@ -5,7 +5,7 @@
     "calendarId": "0ca7e99a558f60e928a3e775ab8d5bf0949630d14a37f2ae542646411f569044@group.calendar.google.com",
     "location": "Paranaíba, MS, Brasil",
     "normalizedCountryCode": "BR",
-    "languages": ["Português", "Español"],
+    "languages": ["pt", "es"],
     "formUrl": "https://forms.gle/FCcjntfuuoGoGLtx5"
   },
   {
@@ -14,7 +14,7 @@
     "calendarId": "47d6c4ce5a6c1efcce8f7a40abaf38ad59995d62194d27170aba63b1bd184dd8@group.calendar.google.com",
     "location": "Bothell, WA, USA",
     "normalizedCountryCode": "US",
-    "languages": ["English", "Español", "Português"],
+    "languages": ["en", "es", "pt"],
     "formUrl": "https://forms.gle/8y8kycv8ZFndSmAc6"
   },
   {
@@ -23,7 +23,7 @@
     "calendarId": "f5ce6655ed5feb654a23a79d2dda755debd873372ec8353551b972c5cb747c61@group.calendar.google.com",
     "location": "Brasília, DF, Brasil",
     "normalizedCountryCode": "BR",
-    "languages": ["Português"],
+    "languages": ["pt"],
     "formUrl": "https://forms.gle/bVL1ByhmG4wbAMKb7"
   },
   {
@@ -32,7 +32,7 @@
     "calendarId": "c79d0abe72d68b4ea0eb7e671c45e84eaccd41b959eab558761c04dda2ffe9ac@group.calendar.google.com",
     "location": "Moquegua, Perú",
     "normalizedCountryCode": "PE",
-    "languages": ["Español", "Português"],
+    "languages": ["es", "pt"],
     "formUrl": "https://forms.gle/gAJFxmU3XBBwVFrP6"
   },
   {
@@ -41,7 +41,7 @@
     "calendarId": "deb8969c4b0637ca9008efe6ca694631142f43b88c70c533eb2c34808c1e75ec@group.calendar.google.com",
     "location": "Moquegua, Perú",
     "normalizedCountryCode": "PE",
-    "languages": ["Español", "Português"],
+    "languages": ["es", "pt"],
     "formUrl": "https://forms.gle/DVGmCpqH4QDmjFP58"
   },
   {
@@ -50,7 +50,7 @@
     "calendarId": "4667389ecf273bdcbe538106ec17c410f08bfc68f853e91e14e31ad303059aea@group.calendar.google.com",
     "location": "Moquegua, Perú",
     "normalizedCountryCode": "PE",
-    "languages": ["Español"],
+    "languages": ["es"],
     "formUrl": "https://forms.gle/kRExifPWRfFdgkts5"
   },
   {
@@ -59,7 +59,7 @@
     "calendarId": "6a1c50d5b87b24787c01131ee7f6abd2aa8b8284f2966dbf1e0531f6514e8d8d@group.calendar.google.com",
     "location": "Moquegua, Perú",
     "normalizedCountryCode": "PE",
-    "languages": ["Español"],
+    "languages": ["es"],
     "formUrl": "https://forms.gle/TYnna4sFNLTETtMc6"
   },
   {
@@ -68,7 +68,7 @@
     "calendarId": "54e0b886bae92e14236e2823f424df52bc0ee1fb2b0b3afcdeb612b6fcca1d16@group.calendar.google.com",
     "location": "Quatro Barras, PR, Brasil",
     "normalizedCountryCode": "BR",
-    "languages": ["Português"],
+    "languages": ["pt"],
     "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSfg7FwEokvUPHs5n_FVcaOG7drzc7NJw4MLZmaUqThobYpQfg/viewform"
   },
   {
@@ -77,7 +77,7 @@
     "calendarId": "0603a19b52adaa2dcfbd4a9de8384a2650c615a4d0bad740f781ada2233c9aa2@group.calendar.google.com",
     "location": "Campo Grande, MS, Brasil",
     "normalizedCountryCode": "BR",
-    "languages": ["Español", "Português"],
+    "languages": ["es", "pt"],
     "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSeuAa92Pfq3YSr3bAetd9-h5yM4mX5pavDDutjNV9xBmv4ySg/viewform"
   },
   {
@@ -86,7 +86,7 @@
     "calendarId": "6b4b3fc3eb9b094732ca21cf7f6dd4c32103350233579b57add7df5893b7d7da@group.calendar.google.com",
     "location": "Saõ Paulo / Hortolândia (ambos), SP, Brasil",
     "normalizedCountryCode": "BR",
-    "languages": ["Português"],
+    "languages": ["pt"],
     "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSdPWWWZ2OvADEihWamlO7lPVekhzQku0R7U0hGb4JHibfzXXw/viewform"
   },
   {
@@ -95,7 +95,7 @@
     "calendarId": "cddf180922a4bc1c07833bb34e68143205deef34bc7c60c14db6eec8331ecf4f@group.calendar.google.com",
     "location": "Taubaté, SP, Brasil",
     "normalizedCountryCode": "BR",
-    "languages": ["Português"],
+    "languages": ["pt"],
     "formUrl": "https://forms.gle/aLuFSeyrD56ML1Fi7"
   }
 ]
