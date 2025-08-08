@@ -105,5 +105,14 @@
     "formUrl": "https://forms.gle/aLuFSeyrD56ML1Fi7",
     "children6to8": true,
     "children9to12": true
+  },
+  {
+    "id": 12,
+    "name": "Cleuza Biazotto",
+    "calendarId": "b245438cab25e6b82cace21e0176e4585625fa1ebeb9b08b8eb22f3afb82e508@group.calendar.google.com",
+    "location": "Mirandópolis, SP, BRasil",
+    "normalizedCountryCode": "BR",
+    "languages": ["pt"],
+    "formUrl": "https://forms.gle/Uu4oAnyCDphGhCgN7"
   }
 ]
