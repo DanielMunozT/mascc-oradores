@@ -21,7 +21,8 @@
       getFollowUrl,
       flagEmoji,
       formatDisplayDate,
-      API_KEY
+      API_KEY,
+      formatLanguages
     } from './script.js';
     import { getCountryCode } from './countryCodeLookup.js';
 
@@ -41,7 +42,7 @@
 
       const calendarLinks = `<a href="${getCalendarUrl(sp.calendarId)}" target="_blank">${T.view_calendar}</a> | <a href="${getFollowUrl(sp.calendarId)}" target="_blank">${T.follow_calendar}</a>`;
       const location = sp.location ? `<br/>${flagEmoji(sp.normalizedCountryCode)} ${sp.location}` : '';
-      const langs = sp.languages ? `<br/>🗣️ ${sp.languages.join(', ')}` : '';
+      const langs = sp.languages && sp.languages.length ? `<br/>🗣️ ${formatLanguages(sp.languages)}` : '';
       const requestLink = sp.formUrl ? `<br/><a href="${sp.formUrl}" target="_blank">${T.request_speaker}</a>` : '';
       document.getElementById('speakerInfo').innerHTML = `${location}${langs}<br/>${calendarLinks}${requestLink}`;
 

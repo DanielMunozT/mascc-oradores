@@ -13,6 +13,17 @@ function getFollowUrl(calendarId) {
   return `https://calendar.google.com/calendar/ical/${encodeURIComponent(calendarId)}/public/basic.ics`;
 }
 
+function formatLanguages(languages) {
+  if (!languages || !languages.length) return '';
+  try {
+    const lang = typeof i18next !== 'undefined' && i18next.language ? i18next.language : 'en';
+    const display = new Intl.DisplayNames([lang], { type: 'language' });
+    return languages.map(code => display.of(code) || code).join(', ');
+  } catch (e) {
+    return languages.join(', ');
+  }
+}
+
 async function speakers() {
   if (!speakersCache) {
     const res = await fetch('speakers.json');
@@ -64,7 +75,7 @@ async function checkAvailability() {
             ? `<br/>${flagEmoji(normalizedCountryCode)} ${parts}`
             : '';
           const langs = languages && languages.length
-            ? `<br/>🗣️ ${languages.join(', ')}`
+            ? `<br/>🗣️ ${formatLanguages(languages)}`
             : '';
           const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
 
@@ -151,7 +162,7 @@ async function checkAvailability() {
           ? `<br/>${flagEmoji(normalizedCountryCode)} ${parts}`
           : '';
         const langs = languages && languages.length
-          ? `<br/>🗣️ ${languages.join(', ')}`
+          ? `<br/>🗣️ ${formatLanguages(languages)}`
           : '';
         const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${API_KEY}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
 
@@ -555,6 +566,7 @@ if (typeof window !== 'undefined') {
   window.checkTeaching = checkTeaching;
   window.addEventListener('DOMContentLoaded', syncInputsWithUrl);
   window.copyWeek = copyWeek;
+  window.formatLanguages = formatLanguages;
 }
 
 export {
@@ -571,5 +583,6 @@ export {
   checkTeaching,
   setRangeText,
   copyWeek,
-  API_KEY
+  API_KEY,
+  formatLanguages
 };
