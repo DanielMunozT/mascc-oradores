@@ -140,7 +140,9 @@
     "location": "San Ignacio, Misiones, Paraguay",
     "normalizedCountryCode": "PY",
     "languages": ["pt", "es"],
-    "formUrl": "https://forms.gle/QrMnP3KRjEYehspB6"
+    "formUrl": "https://forms.gle/QrMnP3KRjEYehspB6",
+    "children6to8": true,
+    "children9to12": true
   },
   {
     "id": 16,
@@ -176,7 +178,9 @@
     "location": "Florianópolis, SC, Brasil",
     "normalizedCountryCode": "BR",
     "languages": ["pt", "es"],
-    "formUrl": "https://forms.gle/eWrYKr1gpno1JBqFA"
+    "formUrl": "https://forms.gle/eWrYKr1gpno1JBqFA",
+    "children6to8": true,
+    "children9to12": true
   },
   {
     "id": 20,
