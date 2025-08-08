@@ -159,5 +159,14 @@
     "normalizedCountryCode": "BR",
     "languages": ["pt"],
     "formUrl": "https://forms.gle/RfwabQrRy3nwKNb87"
+  },
+  {
+    "id": 18,
+    "name": "Lucimar Alves",
+    "calendarId": "55cbb60c2997dfa659119ada2ecae782a59c938f4672d056f86506d6d9aae293@group.calendar.google.com",
+    "location": "Paranaíba, MS, Brasil",
+    "normalizedCountryCode": "BR",
+    "languages": ["pt", "fr"],
+    "formUrl": "https://forms.gle/T97nX1MLeGWaPyvA6"
   }
 ]
