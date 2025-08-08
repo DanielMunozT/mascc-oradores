@@ -24,7 +24,9 @@
     "location": "Brasília, DF, Brasil",
     "normalizedCountryCode": "BR",
     "languages": ["pt"],
-    "formUrl": "https://forms.gle/bVL1ByhmG4wbAMKb7"
+    "formUrl": "https://forms.gle/bVL1ByhmG4wbAMKb7",
+    "children6to8": true,
+    "children9to12": true
   },
   {
     "id": 4,
@@ -33,7 +35,9 @@
     "location": "Moquegua, Perú",
     "normalizedCountryCode": "PE",
     "languages": ["es", "pt"],
-    "formUrl": "https://forms.gle/gAJFxmU3XBBwVFrP6"
+    "formUrl": "https://forms.gle/gAJFxmU3XBBwVFrP6",
+    "children6to8": true,
+    "children9to12": true
   },
   {
     "id": 5,
@@ -42,7 +46,9 @@
     "location": "Moquegua, Perú",
     "normalizedCountryCode": "PE",
     "languages": ["es", "pt"],
-    "formUrl": "https://forms.gle/DVGmCpqH4QDmjFP58"
+    "formUrl": "https://forms.gle/DVGmCpqH4QDmjFP58",
+    "children6to8": true,
+    "children9to12": true
   },
   {
     "id": 6,
@@ -96,6 +102,8 @@
     "location": "Taubaté, SP, Brasil",
     "normalizedCountryCode": "BR",
     "languages": ["pt"],
-    "formUrl": "https://forms.gle/aLuFSeyrD56ML1Fi7"
+    "formUrl": "https://forms.gle/aLuFSeyrD56ML1Fi7",
+    "children6to8": true,
+    "children9to12": true
   }
 ]
