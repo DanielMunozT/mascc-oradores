@@ -79,5 +79,14 @@
     "normalizedCountryCode": "BR",
     "languages": ["Español", "Português"],
     "formUrl": "https://docs.google.com/forms/d/e/1FAIpQLSeuAa92Pfq3YSr3bAetd9-h5yM4mX5pavDDutjNV9xBmv4ySg/viewform"
+  },
+  {
+    "id": 10,
+    "name": "Ivori de Oliveira",
+    "calendarId": "6b4b3fc3eb9b094732ca21cf7f6dd4c32103350233579b57add7df5893b7d7da@group.calendar.google.com",
+    "location": "Hortolândia, SP, Brasil",
+    "normalizedCountryCode": "BR",
+    "languages": ["Português"],
+    "formUrl": "https://forms.gle/5ajMtVCtVW1dbdkRA"
   }
 ]
