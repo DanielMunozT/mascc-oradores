@@ -168,5 +168,14 @@
     "normalizedCountryCode": "BR",
     "languages": ["pt", "fr"],
     "formUrl": "https://forms.gle/T97nX1MLeGWaPyvA6"
+  },
+  {
+    "id": 19,
+    "name": "Érica Cabral",
+    "calendarId": "24c3c739d6ca24a80219ba6e8055c83a056ed7ddf7ee3dd3c86a0d8e7542da6b@group.calendar.google.com",
+    "location": "Florianópolis, SC, Brasil",
+    "normalizedCountryCode": "BR",
+    "languages": ["pt", "es"],
+    "formUrl": "https://forms.gle/eWrYKr1gpno1JBqFA"
   }
 ]
