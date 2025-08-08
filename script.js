@@ -47,6 +47,9 @@ async function checkAvailability() {
   const sp = await speakers();
 
   const resultsDiv = document.getElementById('results');
+  const noteEl = document.getElementById('regionalNote');
+  if (noteEl) noteEl.style.display = 'none';
+  let regionalOnly = false;
   resultsDiv.innerHTML = T.loading;
 
   if (mustBeEntireRange) {
@@ -97,6 +100,7 @@ async function checkAvailability() {
                   const status = hasRegional
                     ? T.available_only_in_region
                     : T.available;
+                  if (hasRegional) regionalOnly = true;
                   results.push({
                     code: normalizedCountryCode || '',
                     name,
@@ -120,6 +124,7 @@ async function checkAvailability() {
 
     results.sort((a, b) => a.code.localeCompare(b.code) || a.name.localeCompare(b.name));
     resultsDiv.innerHTML = results.map(r => r.html).join('');
+    if (noteEl && regionalOnly) noteEl.style.display = 'block';
     return;
   }
 
@@ -183,6 +188,7 @@ async function checkAvailability() {
                 const status = hasRegional
                   ? T.available_only_in_region
                   : T.available;
+                if (hasRegional) regionalOnly = true;
                 w.available.push({
                   code: normalizedCountryCode || '',
                   name,
@@ -213,6 +219,7 @@ async function checkAvailability() {
     });
     html.push(errors.join(''));
     resultsDiv.innerHTML = html.join('');
+    if (noteEl && regionalOnly) noteEl.style.display = 'block';
   }
 
 async function checkTeaching() {
