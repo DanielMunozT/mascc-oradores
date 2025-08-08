@@ -12,12 +12,18 @@
 <body>
   <h1 data-i18n-key="list"></h1>
   <ul id="speakerList"></ul>
+  <h2 data-i18n-key="children_6_8_speakers"></h2>
+  <ul id="children6to8List"></ul>
+  <h2 data-i18n-key="children_9_12_speakers"></h2>
+  <ul id="children9to12List"></ul>
   <script type="module">
     import { speakers, getCalendarUrl, getFollowUrl, flagEmoji, formatLanguages } from './script.js';
 
     const render = () => {
       speakers().then(data => {
         const ul = document.getElementById('speakerList');
+        const kids6to8Ul = document.getElementById('children6to8List');
+        const kids9to12Ul = document.getElementById('children9to12List');
         data.forEach(speaker => {
           const name = `<strong><a href="speaker.html?id=${speaker.id}">${speaker.name}</a></strong>`;
           const calendarLinks = `<a href="${getCalendarUrl(speaker.calendarId)}" target="_blank">${T.view_calendar}</a> | <a href="${getFollowUrl(speaker.calendarId)}" target="_blank">${T.follow_calendar}</a>`;
@@ -27,6 +33,16 @@
           const li = document.createElement('li');
           li.innerHTML = `${name}${location}${langs}<br/>${calendarLinks}${requestLink}`;
           ul.appendChild(li);
+          if (speaker.children6to8) {
+            const li6 = document.createElement('li');
+            li6.innerHTML = `${name}${location}${langs}<br/>${calendarLinks}${requestLink}`;
+            kids6to8Ul.appendChild(li6);
+          }
+          if (speaker.children9to12) {
+            const li9 = document.createElement('li');
+            li9.innerHTML = `${name}${location}${langs}<br/>${calendarLinks}${requestLink}`;
+            kids9to12Ul.appendChild(li9);
+          }
         });
       });
     };

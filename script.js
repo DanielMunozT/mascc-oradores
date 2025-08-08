@@ -41,6 +41,8 @@ async function checkAvailability() {
   const startDateInput = document.getElementById('startDate').value;
   const endDateInput = document.getElementById('endDate').value;
   const mustBeEntireRange = document.getElementById('entireRange')?.checked;
+  const mustTeachChildren6to8 = document.getElementById('children6to8')?.checked;
+  const mustTeachChildren9to12 = document.getElementById('children9to12')?.checked;
   if (!startDateInput || !endDateInput) return;
 
   const startDate = new Date(startDateInput);
@@ -55,7 +57,10 @@ async function checkAvailability() {
   const timeMin = bufferedStart.toISOString();
   const timeMax = bufferedEnd.toISOString();
 
-  const sp = await speakers();
+  const allSpeakers = await speakers();
+  let sp = allSpeakers;
+  if (mustTeachChildren6to8) sp = sp.filter(s => s.children6to8);
+  if (mustTeachChildren9to12) sp = sp.filter(s => s.children9to12);
 
   const resultsDiv = document.getElementById('results');
   const noteEl = document.getElementById('regionalNote');

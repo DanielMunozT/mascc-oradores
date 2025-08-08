@@ -23,6 +23,8 @@
   "view_calendar": "Ver Calendario",
   "follow_calendar": "Seguir Calendario",
   "must_be_available_entire_range": "Debe estar disponible durante todo el rango",
+  "must_teach_children_6_8": "Debe poder enseñar a niños de 6 a 8 años",
+  "must_teach_children_9_12": "Debe poder enseñar a niños de 9 a 12 años",
   "none_available": "No hay oradores disponibles",
   "document_link": "https://docs.google.com/document/d/12r9yETGDjLMo9Nb8zbbkT4BreQrCAEy9mfirN-b7_cE/",
   "document_description": "C\u00F3mo agendar MASCC",
@@ -35,5 +37,7 @@
   "menu": "Men\u00FA",
   "copy_week": "Copiar semana",
   "copied": "Copiado",
-  "scheduled_mawcs": "MASCCs agendados"
+  "scheduled_mawcs": "MASCCs agendados",
+  "children_6_8_speakers": "Oradores que pueden enseñar a niños de 6 a 8 años",
+  "children_9_12_speakers": "Oradores que pueden enseñar a niños de 9 a 12 años"
 }

@@ -23,6 +23,8 @@
   "view_calendar": "View Calendar",
   "follow_calendar": "Follow Calendar",
   "must_be_available_entire_range": "Must be available for the entire range",
+  "must_teach_children_6_8": "Must be able to teach to children 6 to 8 years old",
+  "must_teach_children_9_12": "Must be able to teach to children 9 to 12 years old",
   "none_available": "No speakers available",
   "document_link": "https://docs.google.com/document/d/1DA43ee8d6fvvf8PvauI7GbMJQ_Tyzd_e1ie6qB72zhY/",
   "document_description": "How to schedule MAWC",
@@ -35,5 +37,7 @@
   "menu": "Menu",
   "copy_week": "Copy week",
   "copied": "Copied",
-  "scheduled_mawcs": "Scheduled MAWCs"
+  "scheduled_mawcs": "Scheduled MAWCs",
+  "children_6_8_speakers": "Speakers who can teach children 6 to 8 years old",
+  "children_9_12_speakers": "Speakers who can teach children 9 to 12 years old"
 }
