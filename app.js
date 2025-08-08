@@ -17,6 +17,7 @@
   const defaultLang = ['es','pt'].includes(browserLang) ? browserLang : 'en';
   const initialLang = supportedLangs.includes(cookieLang) ? cookieLang : defaultLang;
   setCookie('lang', initialLang);
+  document.documentElement.setAttribute('lang', initialLang);
 
   const storedTheme = getCookie('theme') || 'light';
   document.documentElement.setAttribute('data-theme', storedTheme);
