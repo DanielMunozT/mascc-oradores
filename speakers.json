@@ -110,9 +110,27 @@
     "id": 12,
     "name": "Cleuza Biazotto",
     "calendarId": "b245438cab25e6b82cace21e0176e4585625fa1ebeb9b08b8eb22f3afb82e508@group.calendar.google.com",
-    "location": "Mirandópolis, SP, BRasil",
+    "location": "Mirandópolis, SP, Brasil",
     "normalizedCountryCode": "BR",
     "languages": ["pt"],
     "formUrl": "https://forms.gle/Uu4oAnyCDphGhCgN7"
+  },
+  {
+    "id": 13,
+    "name": "ldamar Farias",
+    "calendarId": "a45f6aa091490cd8085550fdd8fa67c21fae9924659d29553a0ee1fa0d75e36b@group.calendar.google.com",
+    "location": "Brasília, DF, Brasil",
+    "normalizedCountryCode": "BR",
+    "languages": ["pt"],
+    "formUrl": "https://forms.gle/P364ADWfVa5FhD8p8"
+  },
+  {
+    "id": 14,
+    "name": "Gilson Nunes",
+    "calendarId": "042b1ab9a7346c003cc55b73e717d8e1169ff9201ae9442ac9f6bf390ac9830d@group.calendar.google.com",
+    "location": "Belém, PA, Brasil",
+    "normalizedCountryCode": "BR",
+    "languages": ["pt"],
+    "formUrl": "https://forms.gle/RHYPkzmtArBfoqqF6"
   }
 ]
